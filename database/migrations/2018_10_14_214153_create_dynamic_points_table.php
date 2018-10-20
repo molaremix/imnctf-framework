@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateScoreDecreasesTable extends Migration
+class CreateDynamicPointsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateScoreDecreasesTable extends Migration
      */
     public function up()
     {
-        Schema::create('score_decreases', function (Blueprint $table) {
+        Schema::create('dynamic_points', function (Blueprint $table) {
             $table->increments('id');
             $table->string('by');
             $table->string('percentage');
@@ -29,6 +29,6 @@ class CreateScoreDecreasesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('score_decreases');
+        Schema::dropIfExists('dynamic_point');
     }
 }

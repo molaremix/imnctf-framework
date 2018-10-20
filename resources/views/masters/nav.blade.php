@@ -58,17 +58,8 @@
                                 <span class="hide-menu">Team </span>
                             </a>
                         </li>
-                    @endif
 
-                    <li class="sidebar-item">
-                        <a class="sidebar-link waves-effect waves-dark" href="{{route('scoreboard.index')}}"
-                           aria-expanded="false">
-                            <i class="ti-cup"></i>
-                            <span class="hide-menu">Scoreboard </span>
-                        </a>
-                    </li>
-
-                    @if(Auth::guard('team')->check())
+                    @elseif(Auth::guard('team')->check())
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="{{route('profile.index')}}"
                                aria-expanded="false">
@@ -90,6 +81,29 @@
                                aria-expanded="false">
                                 <i class="ti-power-off"></i>
                                 <span class="hide-menu">Logout </span>
+                            </a>
+                        </li>
+                    @else
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('news.index')}}"
+                               aria-expanded="false">
+                                <i class="ti-help-alt"></i>
+                                <span class="hide-menu">News </span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('challenge.index')}}"
+                               aria-expanded="false">
+                                <i class="ti-flag-alt-2"></i>
+                                <span class="hide-menu">Challenges </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('scoreboard.index')}}"
+                               aria-expanded="false">
+                                <i class="ti-cup"></i>
+                                <span class="hide-menu">Scoreboard </span>
                             </a>
                         </li>
                     @endif

@@ -20,12 +20,22 @@ class CreateChallengesTable extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('flag');
-            $table->string('point');
-            $table->string('submission_limit');
-            $table->boolean('visibly');
-            $table->enum('point_mode', ['static', 'decrease', 'attack_defense']);
+            $table->integer('point');
+            $table->integer('submission_limit')->default(0);
+            $table->boolean('visible')->default(true);
+            $table->enum('point_mode', ['static', 'decrease', 'attack_defense'])->default('static');
             $table->timestamps();
         });
+
+        \App\Models\Challenge::insert([
+            [
+                'name' => 'EZ Web',
+                'category_id' => '2',
+                'description' => 'We Don\'t Have Any : just Check this out http://vulnweb.com',
+                'flag' => 'ImnCTF{hiyaaa_hiyaaa_hiyaaaa_____hiyaaa}',
+                'point' => 1337,
+            ]
+        ]);
     }
 
     /**

@@ -16,9 +16,19 @@ class CreateCategoriesTable extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
+
+        \App\Models\Category::insert([
+            ['name' => 'Misc'],
+            ['name' => 'Web'],
+            ['name' => 'Crypt'],
+            ['name' => 'Re'],
+            ['name' => 'Binary'],
+            ['name' => 'Forensic'],
+            ['name' => 'Network'],
+        ]);
     }
 
     /**

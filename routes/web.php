@@ -12,6 +12,9 @@
 */
 
 Route::prefix('admin')->group(function () {
+    Route::get('/', function (){
+        return redirect()->route('admin.challenge.index');
+    });
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
     Route::post('/login', 'Auth\AdminLoginController@login')->name('admin.check');
     Route::get('/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
