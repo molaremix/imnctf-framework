@@ -2,7 +2,9 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Admin;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Auth;
 
 class ChallengeResources extends JsonResource
 {
@@ -16,11 +18,12 @@ class ChallengeResources extends JsonResource
     {
         return [
             'text' => $this->name,
-            'href' => snake_case(strtolower($this->name)),
+            'href' => Auth::guard('admin')->check() ? route('admin.challenge.show', $this) :  route('challenge.show', $this),
             'data' => [
                 'description' => $this->description,
                 'point' => $this->point,
-                'name' => $this->name
+                'name' => $this->name,
+                'files' => FileResource::collection($this->attachment)
             ]
         ];
     }

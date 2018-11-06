@@ -12,7 +12,7 @@
                     </a>
                     <hr>
                     <form action="@yield('action', route('admin.challenge.store'))"
-                          method="post" id="challenge">
+                          method="post" id="challenge" enctype="multipart/form-data">
                         @csrf
                         @yield('method')
                         @if ($errors->any())
@@ -25,22 +25,55 @@
                             </div>
                         @endif
 
+                        <div class="input-group mb-3">
+
+                            <input type="text" class="form-control" placeholder="Challenge Name" name="name"
+                                   value="{{$challenge['name'] ?? old('name')}}">
+                        </div>
 
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Title"
-                                   aria-label="Title" name="title"
-                                   value="{{$challenge['title'] ?? old('title')}}">
+                            <select class="form-control" name="point_mode" id="point_mode">
+                                <option value="point_mode" disabled selected>Mode</option>
+                                <option value="static">Static</option>
+                                <option value="decrease">Decreasing</option>
+                                <option value="attack_defense">Attack Defense</option>
+                            </select>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Category"
-                                   aria-label="Title" name="category"
-                                   value="{{$challenge['category'] ?? old('category')}}">
+                            <select class="form-control" name="category_id" id="category_id">
+                                <option value="category_id" disabled selected>Category</option>
+                                @foreach($categories as $item)
+                                    <option value="{{$item['id']}}">{{$item['name']}}</option>
+                                @endforeach
+                            </select>
                         </div>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Flag" name="flag"
+                                   value="{{$challenge['flag'] ?? old('flag')}}">
+                        </div>
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" placeholder="Point" name="point"
+                                   value="{{$challenge['point'] ?? old('point')}}">
+                            <input type="number" class="form-control" placeholder="Submission Limit"
+                                   name="submission_limit"
+                                   value="{{$challenge['submission_limit'] ?? old('submission_limit')}}">
+                            <select class="form-control" name="visible" id="visible">
+                                <option value="visible" disabled selected>Visibility</option>
+                                <option value="1">Visible</option>
+                                <option value="0">Invisible</option>
+                            </select>
+                        </div>
+
                         <h5>Content</h5>
                         <div id="editor" class="mb-3" style="height: 300px;" name="lol">
                         </div>
 
-                        <input type="hidden" name="content" id="content">
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" placeholder="Attachment"
+                                   aria-label="Attachment" name="attachments[]" multiple>
+                        </div>
+
+                        <input type="hidden" name="description" id="content">
 
                         <button type="button" class="btn waves-effect waves-light btn-outline-success"
                                 onclick="check()">
@@ -56,6 +89,7 @@
 @endsection
 
 @push('scripts')
+
     <script src="{{asset('assets/libs/quill/dist/quill.min.js')}}"></script>
     <script>
         var quill = new Quill('#editor', {
@@ -64,7 +98,7 @@
 
         $(document).ready(function () {
             var myEditor = document.querySelector('#editor');
-            myEditor.children[0].innerHTML = "{!! $challenge['content'] ?? old('content') !!}"
+            myEditor.children[0].innerHTML = "{!! old('description') !!}"
         });
 
         function check() {
@@ -74,5 +108,10 @@
             $('#content').val(html);
             $('form#challenge').submit()
         }
+    </script>
+    <script>
+        $('#point_mode').val('{{old('point_mode', 'point_mode')}}');
+        $('#category_id').val('{{old('category_id', 'category_id')}}');
+        $('#visible').val('{{old('visible', 'visible')}}');
     </script>
 @endpush

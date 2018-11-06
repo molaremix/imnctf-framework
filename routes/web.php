@@ -12,7 +12,7 @@
 */
 
 Route::prefix('admin')->group(function () {
-    Route::get('/', function (){
+    Route::get('/', function () {
         return redirect()->route('admin.challenge.index');
     });
     Route::get('/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
@@ -26,21 +26,28 @@ Route::middleware('auth:admin')->group(function () {
             Route::resource('about', 'Admin\AboutController');
             Route::resource('participant', 'Admin\TeamController');
             Route::resource('challenge', 'Admin\ChallengeController');
+            Route::get('challenges', 'Admin\ChallengeController@list')->name('challenges');
             Route::resource('submission', 'Admin\SubmissionController');
             Route::resource('team', 'Admin\TeamController');
             Route::resource('news', 'Admin\NewsController');
+            Route::resource('category', 'Admin\CategoryController')->except(['show', 'create']);
+            Route::resource('hint', 'Admin\HintController');
         });
     });
 });
 
 Route::middleware('auth:team')->group(function () {
-    Route::resource('challenge', 'ChallengeController')->only(['index']);
+    Route::resource('challenge', 'ChallengeController')->only(['index', 'show']);
+    Route::get('challenges', 'Admin\ChallengeController@list')->name('challenges');
     Route::resource('profile', 'ProfileController')->only(['index', 'update']);
 });
 
 Route::get('/login', 'Auth\TeamLoginController@showLoginForm')->name('login');
 Route::post('/login', 'Auth\TeamLoginController@login')->name('login.check');
 Route::get('/logout', 'Auth\TeamLoginController@logout')->name('logout');
+Route::get('/download/{files}', function (\App\Models\Attachment $files) {
+    return \Illuminate\Support\Facades\Storage::disk('local')->download('/attachment/' . $files['name']);
+})->name('download');
 Route::resource('/', 'AboutController')->only(['index']);
 Route::resource('news', 'NewsController')->only(['index']);
-Route::resource('scoreboard', 'SubmissionController')->only(['index']);
+Route::resource('scoreboard', 'ScoreboardController')->only(['index']);

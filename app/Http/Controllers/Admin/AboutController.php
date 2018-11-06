@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AboutRequest;
 use App\Models\About;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AboutController extends Controller
@@ -19,21 +19,9 @@ class AboutController extends Controller
         return view('admin.about.index', compact('about'));
     }
 
-    public function store(Request $request)
+    public function store(AboutRequest $request)
     {
-
-        $valid = $this->validate($request, [
-            'title' => 'required|max:64',
-            'description' => 'required',
-            'start' => 'required|date',
-            'finish' => 'required|date|after:start',
-            'freeze' => 'required|integer|min:0'
-        ]);
-
-        $about = new About();
-        $about->fill($valid);
-        $about->save();
-
+        About::create($request->validated());
         return redirect()->route('about.index');
     }
 

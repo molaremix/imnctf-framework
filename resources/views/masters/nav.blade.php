@@ -45,13 +45,13 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.challenge.index')}}"
-                               aria-expanded="false">
-                                <i class="ti-flag-alt-2"></i>
-                                <span class="hide-menu">Challenges </span>
-                            </a>
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="ti-flag-alt-2"></i><span class="hide-menu">Challenges </span></a>
+                            <ul aria-expanded="false" class="collapse  first-level">
+                                <li class="sidebar-item"><a href="{{route('admin.challenge.index')}}" class="sidebar-link"><span class="hide-menu"> Challenge </span></a></li>
+                                <li class="sidebar-item"><a href="{{route('admin.category.index')}}" class="sidebar-link"><span class="hide-menu"> Categories </span></a></li>
+                                <li class="sidebar-item"><a href="{{route('admin.hint.index')}}" class="sidebar-link"></i><span class="hide-menu"> Hints </span></a></li>
+                            </ul>
                         </li>
-
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="#" aria-expanded="false">
                                 <i class="icon-people"></i>
@@ -65,13 +65,6 @@
                                aria-expanded="false">
                                 <i class="ti-user"></i>
                                 <span class="hide-menu">Profile </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('logout')}}"
-                               aria-expanded="false">
-                                <i class="ti-power-off"></i>
-                                <span class="hide-menu">Logout </span>
                             </a>
                         </li>
                     @endif
@@ -104,6 +97,13 @@
                                aria-expanded="false">
                                 <i class="ti-cup"></i>
                                 <span class="hide-menu">Scoreboard </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('logout')}}"
+                               aria-expanded="false">
+                                <i class="ti-power-off"></i>
+                                <span class="hide-menu">Logout </span>
                             </a>
                         </li>
                     @endif

@@ -18,8 +18,8 @@ class CreateChallengesTable extends Migration
             $table->unsignedInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->string('name');
-            $table->string('description');
-            $table->string('flag');
+            $table->text('description');
+            $table->string('flag')->unique();
             $table->integer('point');
             $table->integer('submission_limit')->default(0);
             $table->boolean('visible')->default(true);

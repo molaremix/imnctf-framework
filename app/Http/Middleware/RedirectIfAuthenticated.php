@@ -20,12 +20,12 @@ class RedirectIfAuthenticated
         switch ($guard) {
             case 'admin' :
                 if (Auth::guard($guard)->check()) {
-                    return redirect()->route('admin.home');
+                    return redirect()->route('admin.challenge.index');
                 }
                 break;
             case 'team' :
                 if (Auth::guard($guard)->check()) {
-                    return redirect()->route('login');
+                    return redirect()->route('about.index');
                 }
                 break;
         }

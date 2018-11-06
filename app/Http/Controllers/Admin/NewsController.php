@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\NewsRequest;
+use App\Http\Requests\NewsUpdateRequest;
 use App\Models\News;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class NewsController extends Controller
@@ -19,18 +20,9 @@ class NewsController extends Controller
         return view('admin.news.index', compact('news'));
     }
 
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        $valid = $this->validate($request, [
-            'title' => 'required|max:64',
-            'category' => 'required|max:64',
-            'content' => 'required'
-        ]);
-
-        $news = new News();
-        $news->fill($valid);
-        $news->save();
-
+        News::create($request->validated());
         return redirect()->route('admin.news.index');
     }
 
@@ -44,15 +36,9 @@ class NewsController extends Controller
         return view('admin.news.edit', compact('news'));
     }
 
-    public function update(Request $request, News $news)
+    public function update(NewsUpdateRequest $request, News $news)
     {
-        $valid = $this->validate($request, [
-            'title' => 'required|max:64',
-            'category' => 'required|max:64',
-            'content' => 'required'
-        ]);
-
-        $news->fill($valid);
+        $news->fill($request->validated());
         $news->save();
         return redirect()->route('admin.news.index');
     }

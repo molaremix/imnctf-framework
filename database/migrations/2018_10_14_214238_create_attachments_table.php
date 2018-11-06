@@ -18,8 +18,6 @@ class CreateAttachmentsTable extends Migration
             $table->unsignedInteger('challenge_id');
             $table->foreign('challenge_id')->references('id')->on('challenges');
             $table->string('name');
-            $table->string('checksum');
-            $table->string('path');
             $table->timestamps();
         });
     }

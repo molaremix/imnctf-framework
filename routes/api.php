@@ -15,13 +15,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/', function (){
+Route::get('/', function () {
     return response()->json(['error' => 'absolutely TRUE', 'msg' => 'F*ck of']);
 });
-
-
-Route::get('/challenges', function (){
-    CategoryResource::withoutWrapping();
-    return CategoryResource::collection(Category::with('challenges')->get());
-});
-
