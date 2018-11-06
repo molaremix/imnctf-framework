@@ -49,7 +49,7 @@
                                     </form>
                                     <hr>
                                     <div class="table-responsive">
-                                        <table id="challenges" class="table table-striped table-bordered">
+                                        <table id="challenges" class="table table-hover">
                                             <thead>
                                             <tr>
                                                 <th>Challenges</th>

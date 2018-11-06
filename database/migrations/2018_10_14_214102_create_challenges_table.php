@@ -24,8 +24,8 @@ class CreateChallengesTable extends Migration
             $table->enum('point_mode', ['static', 'dynamic'])->default('static');
             $table->integer('decay')->default(0)->comment('Jumlah Solve sebelum menyentuh nilai Minimum');
             $table->integer('minimum')->default(0);
-            $table->integer('submission_limit')->default(0);
-            $table->boolean('visible')->default(true);
+            $table->integer('submission_limit')->default(-1);
+            $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
 

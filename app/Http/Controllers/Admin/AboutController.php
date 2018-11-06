@@ -22,7 +22,7 @@ class AboutController extends Controller
     public function store(AboutRequest $request)
     {
         About::create($request->validated());
-        return redirect()->route('about.index');
+        return redirect()->route('admin.about.index');
     }
 
     public function welcome()

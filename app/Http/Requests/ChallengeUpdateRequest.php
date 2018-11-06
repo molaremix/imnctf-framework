@@ -16,7 +16,7 @@ class ChallengeUpdateRequest extends FormRequest
             'point' => 'required|numeric',
             'submission_limit' => 'required|numeric',
             'visible' => 'required',
-            'point_mode' => 'in:static,decrease,attack_defense',
+            'point_mode' => 'in:static,dynamic',
             'attachments' => 'nullable',
             'attachments.*' => 'mimes:zip|max:2000'
         ];

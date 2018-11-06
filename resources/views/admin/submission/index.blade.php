@@ -11,7 +11,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="teams" class="table table-striped table-bordered">
+                        <table id="teams" class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Challenge</th>
@@ -28,7 +28,7 @@
                                     <td>{{$item->team['name']}}</td>
                                     <td>{{$item['flag']}}</td>
                                     <td>{{$item->created_at->diffForHumans()}}</td>
-                                    <td>{{$item->correct() ? 'accepted' : 'incorrect'}}</td>
+                                    <td>{{$item->correct() ? 'Accepted' : 'Incorrect'}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -37,6 +37,7 @@
                                 <th>Challenge</th>
                                 <th>Team</th>
                                 <th>Flag</th>
+                                <th>Submit Time</th>
                                 <th width="100">Status</th>
                             </tr>
                             </tfoot>

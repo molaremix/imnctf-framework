@@ -73,7 +73,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.submission.index')}}" aria-expanded="false">
-                                <i class="icon-flag"></i>
+                                <i class="icon-paper-plane"></i>
                                 <span class="hide-menu">Submission</span>
                             </a>
                         </li>

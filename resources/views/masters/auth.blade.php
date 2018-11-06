@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/assets/images/favicon.png')}}">
-    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+    <title>{{env('app_name')}}</title>
     <link href="{{asset('/css/style.min.css')}}" rel="stylesheet">
 
     <!--[if lt IE 9]>

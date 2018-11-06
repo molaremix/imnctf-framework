@@ -14,16 +14,16 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="challenges" class="table table-striped table-bordered">
+                                        <table id="challenges" class="table table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Name</th>
-                                                <th>Category</th>
-                                                <th>Point</th>
-                                                <th>Limit</th>
+                                                <th width="75">Name</th>
+                                                <th width="75">Category</th>
+                                                <th width="50">Point</th>
+                                                <th width="25">Limit</th>
                                                 <th>Flag</th>
-                                                <th>Solve</th>
-                                                <th>Action</th>
+                                                <th width="30">Solve</th>
+                                                <th width="175">Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -32,12 +32,27 @@
                                                     <td>{{$item['name']}}</td>
                                                     <td>{{$item->category['name']}}</td>
                                                     <td>{{$item['point']}}</td>
-                                                    <td>{{$item['submission_limit'] == 0 ? '~' : $item['submission_limit']}}</td>
-                                                    <td>{{$item['flag']}}</td>
+                                                    <td>{{$item['submission_limit'] == -1 ? '~' : $item['submission_limit']}}</td>
+                                                    <td title="{{$item['flag']}}">{{strlen($item['flag']) > 30 ? substr($item['flag'],0,30)."..." : $item['flag']}}</td>
                                                     <td>{{$item->solve()}}</td>
                                                     <td>
-                                                        <a href="{{route('admin.challenge.edit', $item)}}" class="btn btn-xs btn-warning"><i class="mr-2 ti-pencil"></i>Edit</a>
-                                                        <a href="#" class="btn btn-xs btn-danger"><i class="mr-2 ti-trash"></i>Delete</a>
+                                                        <a href="{{route('admin.challenge.edit', $item)}}"
+                                                           class="btn btn-xs btn-warning"><i class="mr-2 ti-pencil"></i>Edit</a>
+                                                        <form action="{{route('admin.challenge.hide', $item)}}"
+                                                              method="post" class="d-inline">
+                                                            @csrf
+                                                            <button class="btn btn-xs btn-primary"><i
+                                                                        class="mr-2 ti-eye"></i>{{$item['is_visible'] ? 'Hide' : 'Show'}}
+                                                            </button>
+                                                        </form>
+                                                        <form action="{{route('admin.challenge.destroy', $item)}}"
+                                                              method="post" class="d-inline">
+                                                            @method('delete')
+                                                            @csrf
+                                                            <button class="btn btn-xs btn-danger"><i
+                                                                        class="mr-2 ti-trash"></i>Delete
+                                                            </button>
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @endforeach

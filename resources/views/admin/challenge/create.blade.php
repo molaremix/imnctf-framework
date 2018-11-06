@@ -11,7 +11,8 @@
                         <h4 class="card-title"><strong> Challenge </strong></h4>
                     </a>
                     <hr>
-                    <form action="@yield('action', route('admin.challenge.store'))" method="post" id="challenge" enctype="multipart/form-data">
+                    <form action="@yield('action', route('admin.challenge.store'))" method="post" id="challenge"
+                          enctype="multipart/form-data">
                         @csrf
                         @yield('method')
                         @if ($errors->any())
@@ -25,17 +26,42 @@
                         @endif
 
                         <div class="input-group mb-3">
-
                             <input type="text" class="form-control" placeholder="Challenge Name" name="name"
                                    value="{{$challenge['name'] ?? old('name')}}">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <input type="number" class="form-control" placeholder="Point" name="point"
+                                   value="{{$challenge['point'] ?? old('point')}}">
+                            <input type="number" class="form-control" placeholder="Submission Limit"
+                                   name="submission_limit"
+                                   value="{{$challenge['submission_limit'] ?? old('submission_limit')}}">
+                            <select class="form-control" name="visible" id="visible">
+                                <option value="visible" disabled selected>Visibility</option>
+                                <option value="1">Visible</option>
+                                <option value="0">Invisible</option>
+                            </select>
                         </div>
 
                         <div class="input-group mb-3">
                             <select class="form-control" name="point_mode" id="point_mode">
                                 <option value="point_mode" disabled selected>Mode</option>
                                 <option value="static">Static</option>
-                                <option value="decrease">Decreasing</option>
+                                <option value="dynamic">Dynamic</option>
                             </select>
+                        </div>
+
+                        <div id="dynamic" style="display: none">
+                            <div class="input-group">
+                                <input type="number" class="form-control" placeholder="Decay" name="decay"
+                                       value="{{$challenge['decay'] ?? old('decay')}}">
+                            </div>
+                            <span class="font-12">*The amount of solves before the challenge will be at the minimum</span>
+
+                            <div class="input-group mb-3 mt-3">
+                                <input type="number" class="form-control" placeholder="Minimum Point" name="minimum"
+                                       value="{{$challenge['minimum'] ?? old('minimum')}}">
+                            </div>
                         </div>
                         <div class="input-group mb-3">
                             <select class="form-control" name="category_id" id="category_id">
@@ -48,18 +74,6 @@
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Flag" name="flag"
                                    value="{{$challenge['flag'] ?? old('flag')}}">
-                        </div>
-                        <div class="input-group mb-3">
-                            <input type="number" class="form-control" placeholder="Point" name="point"
-                                   value="{{$challenge['point'] ?? old('point')}}">
-                            <input type="number" class="form-control" placeholder="Submission Limit"
-                                   name="submission_limit"
-                                   value="{{$challenge['submission_limit'] ?? old('submission_limit')}}">
-                            <select class="form-control" name="visible" id="visible">
-                                <option value="visible" disabled selected>Visibility</option>
-                                <option value="1">Visible</option>
-                                <option value="0">Invisible</option>
-                            </select>
                         </div>
 
                         @yield('attachment')
@@ -109,9 +123,20 @@
             $('#content').val(html);
             $('form#challenge').submit();
         }
+
+        $('#point_mode').on('change', function () {
+            if ($("#point_mode option:selected").text() === 'Dynamic') {
+                $('#dynamic').show();
+            } else {
+                $('#dynamic').hide();
+            }
+        });
     </script>
     <script>
         $('#point_mode').val('{{$challenge['point_mode'] ?? old('point_mode', 'point_mode')}}');
+        if($('#point_mode option:selected').text() === 'Dynamic'){
+            $('#dynamic').show();
+        }
         $('#category_id').val('{{$challenge['category_id'] ?? old('category_id', 'category_id')}}');
         $('#visible').val('{{$challenge['visible'] ?? old('visible', 'visible')}}');
     </script>

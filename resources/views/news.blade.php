@@ -18,7 +18,7 @@
                 <div class="card">
                     <div class="card-header">{{$item['title']}}</div>
                     <div class="card-body">
-                        <h4 class="card-title">{{$item['categories']}}</h4>
+                        <h4 class="card-title">{{$item['category']}}</h4>
                         <p class="card-text">{!! $item['content'] !!}</p>
                     </div>
                 </div>

@@ -29,7 +29,10 @@ class ChallengeController extends Controller
 
     public function store(ChallengeRequest $request)
     {
-        $challenge = Challenge::create($request->validated());
+        $validated  = $request->validated();
+        if ($validated['submission_limit'] == null)
+            $validated['submission_limit'] = -1;
+        $challenge = Challenge::create($validated);
 
         if ($request->has('attachments'))
             foreach ($request->file('attachments') as $file) {
@@ -97,6 +100,12 @@ class ChallengeController extends Controller
         } catch (\Exception $e) {
             return redirect()->route('admin.challenge.index')->withErrors($e->getMessage());
         }
+        return redirect()->route('admin.challenge.index');
+    }
+
+    public function hide(Challenge $challenge)
+    {
+        $challenge->hide();
         return redirect()->route('admin.challenge.index');
     }
 }

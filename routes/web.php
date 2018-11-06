@@ -26,7 +26,7 @@ Route::middleware('auth:admin')->group(function () {
             Route::resource('about', 'Admin\AboutController');
             Route::resource('team', 'Admin\TeamController');
             Route::resource('challenge', 'Admin\ChallengeController');
-            Route::get('challenges', 'Admin\ChallengeController@list')->name('challenges');
+            Route::post('challenge/{challenge}/hide', 'Admin\ChallengeController@hide')->name('challenge.hide');
             Route::resource('submission', 'Admin\SubmissionController');
             Route::resource('team', 'Admin\TeamController');
             Route::post('team/{team}/hide', 'Admin\TeamController@hide')->name('team.hide');

@@ -18,7 +18,7 @@
                     <div class="card-header">
                         {{$item['title']}}
                         <div class="float-right ">
-                            <form action="{{route('admin.news.destroy', $item)}}" method="post">
+                            <form action="{{route('admin.news.destroy', $item)}}" method="post" class="d-inline">
                                 @method('delete')
                                 @csrf
                                 <a href="{{route('admin.news.edit', $item)}}" class="btn btn-xs btn-warning">Edit<i

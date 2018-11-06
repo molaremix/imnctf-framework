@@ -13,7 +13,7 @@
                     <a href="{{route('admin.team.create')}}" class="btn btn-success mb-3">Create Team<i
                                 class="ml-2 ti-plus"></i></a>
                     <div class="table-responsive">
-                        <table id="teams" class="table table-striped table-bordered">
+                        <table id="teams" class="table table-hover">
                             <thead>
                             <tr>
                                 <th>Name</th>

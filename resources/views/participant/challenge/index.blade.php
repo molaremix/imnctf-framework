@@ -65,18 +65,10 @@
     <script>
 
         var data;
-        @if(Auth::guard('admin')->check())
-        $.getJSON('{{route('admin.challenges')}}', function (json) {
-            data = json;
-            hasDone();
-        });
-        @else
         $.getJSON('{{route('challenges')}}', function (json) {
             data = json;
             hasDone();
         });
-
-        @endif
 
         function hasDone() {
             $('#challenge-tree').treeview({

@@ -7,8 +7,12 @@ use Illuminate\Support\Facades\Storage;
 
 class Challenge extends Model
 {
-    protected $fillable = ['category_id', 'name', 'description', 'flag', 'point', 'submission_limit', 'visibly', 'point_mode'];
+    protected $fillable = ['category_id', 'name', 'description', 'flag', 'point', 'submission_limit', 'is_visible', 'point_mode'];
     private $solve = 0;
+
+    protected $casts = [
+        'visible' => 'boolean'
+    ];
 
     public function category()
     {
@@ -44,6 +48,12 @@ class Challenge extends Model
     public function hint()
     {
         return $this->hasMany(Hint::class);
+    }
+
+    public function hide()
+    {
+        $this->is_visible = !$this->is_visible;
+        $this->save();
     }
 
 }
