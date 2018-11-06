@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class SubmissionController extends Controller
 {
-    public function strore(Request $request)
+    public function store(Request $request)
     {
         $submission = new Submission();
         $submission->fill($request->all());
-        return view('participant.scoreboard.index', compact('submission'));
+        return view('team.scoreboard.index', compact('submission'));
     }
+
+
 }

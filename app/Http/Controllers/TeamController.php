@@ -10,6 +10,6 @@ class TeamController extends Controller
     public function index()
     {
         $team = Team::first();
-        return view('participant.profile.index', compact('team'));
+        return view('team.profile.index', compact('team'));
     }
 }

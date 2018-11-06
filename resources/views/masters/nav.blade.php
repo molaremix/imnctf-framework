@@ -7,6 +7,12 @@
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     @stack('styles')
+    <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+    </style>
 </head>
 <body>
 
@@ -45,20 +51,32 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="ti-flag-alt-2"></i><span class="hide-menu">Challenges </span></a>
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i
+                                        class="ti-flag-alt-2"></i><span class="hide-menu">Challenges </span></a>
                             <ul aria-expanded="false" class="collapse  first-level">
-                                <li class="sidebar-item"><a href="{{route('admin.challenge.index')}}" class="sidebar-link"><span class="hide-menu"> Challenge </span></a></li>
-                                <li class="sidebar-item"><a href="{{route('admin.category.index')}}" class="sidebar-link"><span class="hide-menu"> Categories </span></a></li>
-                                <li class="sidebar-item"><a href="{{route('admin.hint.index')}}" class="sidebar-link"></i><span class="hide-menu"> Hints </span></a></li>
+                                <li class="sidebar-item"><a href="{{route('admin.challenge.index')}}"
+                                                            class="sidebar-link"><span
+                                                class="hide-menu"> Challenge </span></a></li>
+                                <li class="sidebar-item"><a href="{{route('admin.category.index')}}"
+                                                            class="sidebar-link"><span
+                                                class="hide-menu"> Categories </span></a></li>
+                                <li class="sidebar-item"><a href="{{route('admin.hint.index')}}"
+                                                            class="sidebar-link"></i><span
+                                                class="hide-menu"> Hints </span></a></li>
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="#" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.team.index')}}" aria-expanded="false">
                                 <i class="icon-people"></i>
-                                <span class="hide-menu">Team </span>
+                                <span class="hide-menu">Team</span>
                             </a>
                         </li>
-
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.submission.index')}}" aria-expanded="false">
+                                <i class="icon-flag"></i>
+                                <span class="hide-menu">Submission</span>
+                            </a>
+                        </li>
                     @elseif(Auth::guard('team')->check())
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="{{route('profile.index')}}"
@@ -117,7 +135,7 @@
         </div>
     </div>
     <footer class="footer text-center">
-        Powered by <a href="https://github.com/iamnubs" target="_blank">ImnCTF</a>.
+        Powered by <a href="https://github.com/iamnubs/imnctf-framework" target="_blank">ImnCTF</a>.
     </footer>
 </div>
 

@@ -11,8 +11,7 @@
                         <h4 class="card-title"><strong> Challenge </strong></h4>
                     </a>
                     <hr>
-                    <form action="@yield('action', route('admin.challenge.store'))"
-                          method="post" id="challenge" enctype="multipart/form-data">
+                    <form action="@yield('action', route('admin.challenge.store'))" method="post" id="challenge" enctype="multipart/form-data">
                         @csrf
                         @yield('method')
                         @if ($errors->any())
@@ -36,7 +35,6 @@
                                 <option value="point_mode" disabled selected>Mode</option>
                                 <option value="static">Static</option>
                                 <option value="decrease">Decreasing</option>
-                                <option value="attack_defense">Attack Defense</option>
                             </select>
                         </div>
                         <div class="input-group mb-3">
@@ -64,6 +62,8 @@
                             </select>
                         </div>
 
+                        @yield('attachment')
+
                         <h5>Content</h5>
                         <div id="editor" class="mb-3" style="height: 300px;" name="lol">
                         </div>
@@ -82,6 +82,7 @@
                            class="btn waves-effect float-right waves-light btn-outline-warning">
                             Cancel<i class="ml-2 ti-close"></i></a>
                     </form>
+                    @yield('delete')
                 </div>
             </div>
         </div>
@@ -98,7 +99,7 @@
 
         $(document).ready(function () {
             var myEditor = document.querySelector('#editor');
-            myEditor.children[0].innerHTML = "{!! old('description') !!}"
+            myEditor.children[0].innerHTML = "{!! $challenge['description'] ?? old('description') !!}"
         });
 
         function check() {
@@ -106,12 +107,12 @@
             var html = myEditor.children[0].innerHTML;
 
             $('#content').val(html);
-            $('form#challenge').submit()
+            $('form#challenge').submit();
         }
     </script>
     <script>
-        $('#point_mode').val('{{old('point_mode', 'point_mode')}}');
-        $('#category_id').val('{{old('category_id', 'category_id')}}');
-        $('#visible').val('{{old('visible', 'visible')}}');
+        $('#point_mode').val('{{$challenge['point_mode'] ?? old('point_mode', 'point_mode')}}');
+        $('#category_id').val('{{$challenge['category_id'] ?? old('category_id', 'category_id')}}');
+        $('#visible').val('{{$challenge['visible'] ?? old('visible', 'visible')}}');
     </script>
 @endpush

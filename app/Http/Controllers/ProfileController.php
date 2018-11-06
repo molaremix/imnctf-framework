@@ -11,6 +11,6 @@ class ProfileController extends Controller
     public function index()
     {
         $team = Auth::user();
-        return view('participant.profile.index', compact('team'));
+        return view('team.profile.index', compact('team'));
     }
 }

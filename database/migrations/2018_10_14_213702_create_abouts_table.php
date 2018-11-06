@@ -20,6 +20,7 @@ class CreateAboutsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('finish');
             $table->integer('freeze');
+            $table->enum('style', ['jeopardy', 'attack_defense'])->default('jeopardy');;
             $table->timestamps();
         });
     }

@@ -21,9 +21,11 @@ class CreateChallengesTable extends Migration
             $table->text('description');
             $table->string('flag')->unique();
             $table->integer('point');
+            $table->enum('point_mode', ['static', 'dynamic'])->default('static');
+            $table->integer('decay')->default(0)->comment('Jumlah Solve sebelum menyentuh nilai Minimum');
+            $table->integer('minimum')->default(0);
             $table->integer('submission_limit')->default(0);
             $table->boolean('visible')->default(true);
-            $table->enum('point_mode', ['static', 'decrease', 'attack_defense'])->default('static');
             $table->timestamps();
         });
 

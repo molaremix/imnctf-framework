@@ -50,7 +50,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <script src="{{asset('assets/extra-libs/treeview/dist/bootstrap-treeview.min.js')}}"></script>
-    <script src="{{asset('assets/extra-libs/treeview/dist/bootstrap-treeview-init.js')}}"></script>
-@endpush

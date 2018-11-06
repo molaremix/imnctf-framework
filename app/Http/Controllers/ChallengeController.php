@@ -10,12 +10,12 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        return view('participant.challenge.index', compact(''));
+        return view('team.challenge.index', compact(''));
     }
 
     public function show(Challenge $challenge)
     {
         $hints = $challenge->hint;
-        return view('participant.challenge.index', compact('challenge', 'hints'));
+        return view('team.challenge.index', compact('challenge', 'hints'));
     }
 }

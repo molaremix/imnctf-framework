@@ -24,14 +24,17 @@ Route::middleware('auth:admin')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::name('admin.')->group(function () {
             Route::resource('about', 'Admin\AboutController');
-            Route::resource('participant', 'Admin\TeamController');
+            Route::resource('team', 'Admin\TeamController');
             Route::resource('challenge', 'Admin\ChallengeController');
             Route::get('challenges', 'Admin\ChallengeController@list')->name('challenges');
             Route::resource('submission', 'Admin\SubmissionController');
             Route::resource('team', 'Admin\TeamController');
+            Route::post('team/{team}/hide', 'Admin\TeamController@hide')->name('team.hide');
+            Route::post('team/{team}/verify', 'Admin\TeamController@verify')->name('team.verify');
             Route::resource('news', 'Admin\NewsController');
             Route::resource('category', 'Admin\CategoryController')->except(['show', 'create']);
             Route::resource('hint', 'Admin\HintController');
+            Route::resource('attachment', 'Admin\AttachmentController')->only(['destroy']);
         });
     });
 });

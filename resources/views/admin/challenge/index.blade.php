@@ -36,7 +36,7 @@
                                                     <td>{{$item['flag']}}</td>
                                                     <td>{{$item->solve()}}</td>
                                                     <td>
-                                                        <a href="#" class="btn btn-xs btn-warning"><i class="mr-2 ti-pencil"></i>Edit</a>
+                                                        <a href="{{route('admin.challenge.edit', $item)}}" class="btn btn-xs btn-warning"><i class="mr-2 ti-pencil"></i>Edit</a>
                                                         <a href="#" class="btn btn-xs btn-danger"><i class="mr-2 ti-trash"></i>Delete</a>
                                                     </td>
                                                 </tr>
