@@ -88,6 +88,14 @@
                                 <span class="hide-menu">Profile </span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('logout')}}"
+                               aria-expanded="false">
+                                <i class="ti-power-off"></i>
+                                <span class="hide-menu">Logout </span>
+                            </a>
+                        </li>
                     @endif
                     @if(Auth::guard('admin')->check())
                         <li class="sidebar-item">
@@ -125,13 +133,6 @@
                                aria-expanded="false">
                                 <i class="ti-cup"></i>
                                 <span class="hide-menu">Scoreboard </span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('logout')}}"
-                               aria-expanded="false">
-                                <i class="ti-power-off"></i>
-                                <span class="hide-menu">Logout </span>
                             </a>
                         </li>
                     @endif
