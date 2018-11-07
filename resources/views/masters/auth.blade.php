@@ -31,7 +31,7 @@
         <div class="auth-box">
             <div id="loginform">
                 <div class="logo">
-                    <span class="db"><img src="{{asset('/img/icon-banner.png')}}" alt="logo"/></span>
+                    <span class="db"><img src="{{asset('/img/icon-banner.png')}}" alt="logo" style="max-width: 300px"/></span>
                     <h5 class="font-medium m-b-20 mt-3">@yield('title', 'Sign In to Admin')</h5>
                 </div>
                 @yield('form')
