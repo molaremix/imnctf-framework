@@ -41,6 +41,7 @@ Route::middleware('auth:admin')->group(function () {
 
 Route::middleware('auth:team')->group(function () {
     Route::resource('challenge', 'ChallengeController')->only(['index', 'show']);
+    Route::resource('submission', 'SubmissionController')->only(['store']);
     Route::get('challenges', 'Admin\ChallengeController@list')->name('challenges');
     Route::resource('profile', 'ProfileController')->only(['index', 'update']);
 });
@@ -54,3 +55,4 @@ Route::get('/download/{files}', function (\App\Models\Attachment $files) {
 Route::resource('/', 'AboutController')->only(['index']);
 Route::resource('news', 'NewsController')->only(['index']);
 Route::resource('scoreboard', 'ScoreboardController')->only(['index']);
+Route::get('scoreboard/standing', 'ScoreboardController@standing')->name('standing');

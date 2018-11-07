@@ -20,13 +20,15 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @for($i=1;  $i<100; $i++)
+                            @foreach($teams as $item)
                                 <tr>
-                                    <td>{{$i}}</td>
-                                    <td>LOL</td>
-                                    <td>{{rand(0, 1000)}}</td>
+                                    <td>{{$loop->iteration}}</td>
+                                    <td>
+                                        {{$item['name']}}
+                                    </td>
+                                    <td>{{$item->point()}}</td>
                                 </tr>
-                            @endfor
+                            @endforeach
                             </tbody>
                             <tfoot>
                             <tr>
@@ -41,14 +43,19 @@
             </div>
         </div>
     </div>
-
 @endsection
 @push('scripts')
-    <script src="{{asset('/assets/extra-libs/c3/d3.min.js')}}"></script>
-    <script src="{{asset('/assets/extra-libs/c3/c3.min.js')}}"></script>
-    <script src="{{asset('/assets/libs/chartist/dist/chartist.min.js')}}"></script>
-    <script src="{{asset('/js/pages/dashboards/dashboard3.js')}}"></script>
-    <script src="{{asset('/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
     <script src="{{asset('/assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script src="{{asset('/js/pages/datatable/datatable-basic.init.js')}}"></script>
+    <script>
+        setInterval(function () {
+            $.ajax({
+                type: "get",
+                url: "{{route('standing')}}",
+                success: function (data) {
+                    console.log(data['data']);
+                }
+            });
+        }, 5000);
+    </script>
 @endpush

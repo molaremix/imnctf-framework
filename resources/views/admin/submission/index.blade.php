@@ -28,7 +28,13 @@
                                     <td>{{$item->team['name']}}</td>
                                     <td>{{$item['flag']}}</td>
                                     <td>{{$item->created_at->diffForHumans()}}</td>
-                                    <td>{{$item->correct() ? 'Accepted' : 'Incorrect'}}</td>
+                                    <td>
+                                        @if($item->correct())
+                                            <span class="btn btn-xs btn-outline-success">Accepted</span>
+                                        @else
+                                            <span class="btn btn-xs btn-outline-danger">Incorrect</span>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

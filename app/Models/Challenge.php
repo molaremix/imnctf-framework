@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class Challenge extends Model
 {
-    protected $fillable = ['category_id', 'name', 'description', 'flag', 'point', 'submission_limit', 'is_visible', 'point_mode'];
+    protected $fillable = ['category_id', 'name', 'description', 'flag', 'point', 'submission_limit', 'is_visible', 'point_mode', 'decay', 'minimum'];
     private $solve = 0;
 
     protected $casts = [
@@ -56,4 +57,21 @@ class Challenge extends Model
         $this->save();
     }
 
+    public function solved()
+    {
+        return Auth::user()->submission->where('flag', $this->flag)->where('challenge_id', $this->id)->count() != 0;
+    }
+
+    public function point()
+    {
+        if ($this->point_mode === 'static') {
+            return $this->point;
+        } else {
+            if ($this->decay == 0)
+                $this->decay = 1;
+            $dynamic = ceil(((($this->minimum - $this->point) / ($this->decay ** 2)) * ($this->solve() ** 2)) + $this->point);
+
+            return $dynamic < $this->minimum ? $this->minimum : $dynamic;
+        }
+    }
 }

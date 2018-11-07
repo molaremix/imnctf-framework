@@ -28,6 +28,11 @@ class TeamController extends Controller
         return redirect()->route('admin.team.index');
     }
 
+    public function update(Team $team, Request $request)
+    {
+
+    }
+
     public function edit(Team $team)
     {
         return view('admin.team.create', compact('team'));

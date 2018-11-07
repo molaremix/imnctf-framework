@@ -15,15 +15,6 @@
                           method="post" id="news">
                         @csrf
                         @yield('method')
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Title"
                                    aria-label="Title" name="title"

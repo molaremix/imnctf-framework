@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TeamResource;
+use App\Models\Team;
 use Illuminate\Support\Facades\DB;
 
 class ScoreboardController extends Controller
 {
     public function index()
     {
-        $scores = DB::select('SELECT teams.name, submissions.team_id, challenges.point FROM submissions INNER JOIN challenges ON submissions.challenge_id = challenges.id INNER JOIN teams ON teams.id=submissions.team_id WHERE submissions.flag = challenges.flag');
-        dd($scores);
+        $teams = $this->standing();
+        return view('scoreboard', compact('teams'));
+    }
+
+    public function standing()
+    {
+        $teams = Team::where('baned', '0')->get()->sortByDesc(function ($item){
+            return $item->point();
+        });
+        return TeamResource::collection($teams);
     }
 }

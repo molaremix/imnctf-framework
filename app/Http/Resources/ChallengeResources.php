@@ -16,15 +16,20 @@ class ChallengeResources extends JsonResource
      */
     public function toArray($request)
     {
-        return [
+        $attrib = [
             'text' => $this->name,
-            'href' => Auth::guard('admin')->check() ? route('admin.challenge.show', $this) :  route('challenge.show', $this),
+            'href' => route('challenge.show', $this),
             'data' => [
                 'description' => $this->description,
                 'point' => $this->point,
                 'name' => $this->name,
                 'files' => FileResource::collection($this->attachment)
-            ]
+            ],
         ];
+        if ($this->solved()) {
+            $attrib['color'] = "#ffffff";
+            $attrib['backColor'] = "#5ac146";
+        }
+        return $attrib;
     }
 }

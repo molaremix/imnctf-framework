@@ -6,6 +6,7 @@
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <link href="{{asset('assets/libs/toastr/build/toastr.min.css')}}" rel="stylesheet">
     @stack('styles')
     <style>
         input::-webkit-outer-spin-button,
@@ -66,13 +67,15 @@
                             </ul>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.team.index')}}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.team.index')}}"
+                               aria-expanded="false">
                                 <i class="icon-people"></i>
                                 <span class="hide-menu">Team</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.submission.index')}}" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.submission.index')}}"
+                               aria-expanded="false">
                                 <i class="icon-paper-plane"></i>
                                 <span class="hide-menu">Submission</span>
                             </a>
@@ -87,6 +90,13 @@
                         </li>
                     @endif
                     @if(Auth::guard('admin')->check())
+                        <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('scoreboard.index')}}"
+                               aria-expanded="false">
+                                <i class="ti-cup"></i>
+                                <span class="hide-menu">Scoreboard </span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.logout')}}"
                                aria-expanded="false">
@@ -131,6 +141,17 @@
     </aside>
     <div class="page-wrapper">
         <div class="container-fluid">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">×</span></button>
+                    <ul class="mb-0">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             @yield('content')
         </div>
     </div>
@@ -138,18 +159,25 @@
         Powered by <a href="https://github.com/iamnubs/imnctf-framework" target="_blank">ImnCTF</a>.
     </footer>
 </div>
-
-<script src="{{asset('assets/libs/jquery/dist/jquery.min.js')}}"></script>
-<script src="{{asset('assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-<script src="{{asset('assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/assets/libs/jquery/dist/jquery.min.js')}}"></script>
+<script src="{{asset('/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
+<script src="{{asset('/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 <script src="{{asset('/js/app.min.js')}}"></script>
 <script src="{{asset('/js/app.init.horizontal.js')}}"></script>
 <script src="{{asset('/js/app-style-switcher.horizontal.js')}}"></script>
-<script src="{{asset('assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
-<script src="{{asset('assets/extra-libs/sparkline/sparkline.js')}}"></script>
+<script src="{{asset('/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js')}}"></script>
+<script src="{{asset('/assets/extra-libs/sparkline/sparkline.js')}}"></script>
+<script src="{{asset('/assets/libs/toastr/build/toastr.min.js')}}"></script>
 <script src="{{asset('/js/waves.js')}}"></script>
 <script src="{{asset('/js/sidebarmenu.js')}}"></script>
 <script src="{{asset('/js/custom.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        @if(Session::has('status'))
+        toastr.success('{{Session::get('status')}}', 'Info');
+        @endif
+    });
+</script>
 @stack('scripts')
 </body>
 

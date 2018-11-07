@@ -13,15 +13,6 @@
                                     <form action="@yield('action', route('admin.team.store'))" method="post">
                                         @csrf
                                         @yield('method')
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-face-smile"></i></span>

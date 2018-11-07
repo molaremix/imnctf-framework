@@ -22,7 +22,7 @@
                                     @isset($challenge)
                                         <p class="card-text" id="desc">{!! $challenge['description'] !!}</p>
 
-                                        @isset($hints)
+                                        @if(count($hints) > 0)
 
                                             <div class="alert alert-success" id="hint">Hint! :
                                                 <ul>
@@ -42,15 +42,19 @@
                                                 </a>
                                             </div>
                                         @endforeach
-                                        <div class="input-group mb-3">
-                                            <div class="input-group-prepend">
-                                                <span class="input-group-text"><i class="ti-flag-alt-2"></i></span>
+                                        <form action="{{route('submission.store')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" value="{{$challenge['id']}}" name="challenge_id">
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="ti-flag-alt-2"></i></span>
+                                                </div>
+                                                <input type="text" class="form-control" placeholder="Flag"
+                                                       aria-label="Flag" name="flag">
                                             </div>
-                                            <input type="text" class="form-control" placeholder="Flag"
-                                                   aria-label="Flag">
-                                        </div>
-                                        <button type="button" class="btn waves-effect waves-light btn-outline-success">
-                                            Submit<i class="ml-2 ti-control-forward"></i></button>
+                                            <button class="btn waves-effect waves-light btn-outline-success">
+                                                Submit<i class="ml-2 ti-control-forward"></i></button>
+                                        </form>
                                     @endif
                                 </div>
                             </div>
@@ -80,6 +84,7 @@
                 data: data,
                 enableLinks: true
             });
+            $('#challenge-tree').treeview('checkNode', [ 1, { silent: true } ]);
         }
     </script>
     <script src="{{asset('assets/extra-libs/treeview/dist/bootstrap-treeview.min.js')}}"></script>

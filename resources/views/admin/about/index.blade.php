@@ -17,15 +17,6 @@
                                     <hr>
                                     <form action="{{route('admin.about.store')}}" method="post" id="about">
                                         @csrf
-                                        @if ($errors->any())
-                                            <div class="alert alert-danger">
-                                                <ul>
-                                                    @foreach ($errors->all() as $error)
-                                                        <li>{{ $error }}</li>
-                                                    @endforeach
-                                                </ul>
-                                            </div>
-                                        @endif
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
                                                 <span class="input-group-text"><i class="ti-flag-alt-2"></i></span>

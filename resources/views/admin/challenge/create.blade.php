@@ -13,18 +13,8 @@
                     <hr>
                     <form action="@yield('action', route('admin.challenge.store'))" method="post" id="challenge"
                           enctype="multipart/form-data">
-                        @csrf
                         @yield('method')
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
+                        @csrf
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Challenge Name" name="name"
                                    value="{{$challenge['name'] ?? old('name')}}">
