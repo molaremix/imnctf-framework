@@ -35,6 +35,8 @@ Route::middleware('auth:admin')->group(function () {
             Route::resource('category', 'Admin\CategoryController')->except(['show', 'create']);
             Route::resource('hint', 'Admin\HintController');
             Route::resource('attachment', 'Admin\AttachmentController')->only(['destroy']);
+            Route::resource('scoreboard', 'Admin\ScoreboardController')->only(['index']);
+            Route::get('scoreboard/standing', 'Admin\ScoreboardController@standing')->name('standing');
         });
     });
 });

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Http\Controllers\ScoreboardController;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,12 +43,34 @@ class Team extends Authenticatable
         return $this->hasMany(Submission::class);
     }
 
-    public function point()
+    public function submissionBeforeFreeze()
+    {
+        $about = About::orderBy('id', 'DESC')->first();
+        if ($about != null)
+            $freeze = $about->finish->subHours(4);
+        else
+            $freeze = Carbon::now();
+
+        return $this->submission()->where('created_at', '<=', $freeze);
+    }
+
+    public function pointUnfreeze()
     {
         $correct = new Collection();
         $this->submission()->each(function ($item) use ($correct) {
             if ($item->correct()) {
-                $correct->put($item['challenge_id'], ['point' => $item->challenge->point()]);
+                $correct->put($item['challenge_id'], ['pts' => $item->challenge->remain()]);
+            }
+        });
+        return $correct->sum('pts');
+    }
+
+    public function point()
+    {
+        $correct = new Collection();
+        $this->submissionBeforeFreeze()->each(function ($item) use ($correct) {
+            if ($item->correct()) {
+                $correct->put($item['challenge_id'], ['point' => $item->challenge->remain()]);
             }
         });
         return $correct->sum('point');

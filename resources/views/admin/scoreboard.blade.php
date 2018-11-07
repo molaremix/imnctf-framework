@@ -9,9 +9,6 @@
     <div class="row">
         <div class="col-lg-12 col-md-12">
             <div class="card">
-                <div class="card-header text-center">
-                    <h5>{{$freeze ? 'Scoreboard has ben Freeze' : 'Competition Standing '}}</h5>
-                </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="zero_config" class="table table-hover">
@@ -29,7 +26,7 @@
                                     <td>
                                         {{$item['name']}}
                                     </td>
-                                    <td>{{$item->point()}}</td>
+                                    <td>{{$item->pointUnfreeze()}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -54,7 +51,7 @@
         setInterval(function () {
             $.ajax({
                 type: "get",
-                url: "{{route('standing')}}",
+                url: "{{route('admin.standing')}}",
                 success: function (data) {
                     console.log(data['data']);
                 }

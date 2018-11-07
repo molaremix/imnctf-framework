@@ -29,7 +29,7 @@ class ChallengeController extends Controller
 
     public function store(ChallengeRequest $request)
     {
-        $validated  = $request->validated();
+        $validated = $request->validated();
         if ($validated['submission_limit'] == null)
             $validated['submission_limit'] = -1;
         $challenge = Challenge::create($validated);
@@ -84,7 +84,9 @@ class ChallengeController extends Controller
     public function list()
     {
         CategoryResource::withoutWrapping();
-        return CategoryResource::collection(Category::with('challenges')->get());
+        return CategoryResource::collection(Category::with(['challenges' => function ($q) {
+            $q->where('is_visible', true);
+        }])->get());
     }
 
     public function edit(Challenge $challenge)

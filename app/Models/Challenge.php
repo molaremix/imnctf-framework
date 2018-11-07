@@ -62,14 +62,14 @@ class Challenge extends Model
         return Auth::user()->submission->where('flag', $this->flag)->where('challenge_id', $this->id)->count() != 0;
     }
 
-    public function point()
+    public function remain()
     {
         if ($this->point_mode === 'static') {
             return $this->point;
         } else {
             if ($this->decay == 0)
                 $this->decay = 1;
-            $dynamic = ceil(((($this->minimum - $this->point) / ($this->decay ** 2)) * ($this->solve() ** 2)) + $this->point);
+            $dynamic = ceil(((($this->minimum - $this->point) / ($this->decay ** 2)) * (($this->solve() - 1) ** 2)) + $this->point);
 
             return $dynamic < $this->minimum ? $this->minimum : $dynamic;
         }
