@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Controllers\ScoreboardController;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -50,5 +51,16 @@ class Team extends Authenticatable
             }
         });
         return $correct->sum('point');
+    }
+
+    public function rank()
+    {
+        $rank = Team::where('baned', '0')->get()->sortByDesc(function ($item) {
+            return $item->point();
+        })->search(function ($item) {
+            return $item['id'] == 1;
+        });
+
+        return $rank + 1;
     }
 }

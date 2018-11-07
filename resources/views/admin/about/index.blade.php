@@ -31,7 +31,7 @@
                                             </div>
                                             <input type="datetime-local" class="form-control" placeholder="start"
                                                    aria-label="Name" name="start"
-                                                   value="{{old('start', date("Y-m-d\TH:i", strtotime($about['start'])))}}">
+                                                   value="{{old('start', $about ? date("Y-m-d\TH:i", strtotime($about['finish'])) : \Carbon\Carbon::now('Asia/Jakarta')->format("Y-m-d\TH:i"))}}">
                                         </div>
                                         <div class="input-group mb-3">
                                             <div class="input-group-prepend">
@@ -39,7 +39,7 @@
                                             </div>
                                             <input type="datetime-local" class="form-control" placeholder="finish"
                                                    aria-label="Name" name="finish"
-                                                   value="{{old('finish', date("Y-m-d\TH:i", strtotime($about['finish'])))}}">
+                                                   value="{{old('finish', $about ? date("Y-m-d\TH:i", strtotime($about['finish'])) : \Carbon\Carbon::now('Asia/Jakarta')->format("Y-m-d\TH:i"))}}">
                                         </div>
 
                                         <div class="input-group mb-3">

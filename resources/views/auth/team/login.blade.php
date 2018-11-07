@@ -1,6 +1,7 @@
 @extends('masters.auth')
 @section('title', 'Sign In to Team')
 @section('form')
+    @php($about = \App\Models\About::orderBy('id', 'DESC')->first())
     <div class="row">
         <div class="col-12">
             <form class="form-horizontal m-t-20" id="loginform" action="{{route('login.check')}}"
@@ -35,6 +36,9 @@
                     <div class="col-xs-12 p-b-20">
                         <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
                     </div>
+                    @if($about['public'])
+                        <a href="{{route('register')}}">Click Here for Register</a>
+                    @endif
                 </div>
             </form>
         </div>

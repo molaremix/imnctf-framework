@@ -1,3 +1,4 @@
+@php($about = \App\Models\About::orderBy('id', 'DESC')->first())
 <!DOCTYPE html>
 <html dir="ltr">
 
@@ -8,8 +9,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/img/favicon.png')}}">
-    <title>{{env('app_name')}}</title>
+    <title>{{$about['title'] ?? 'ImnCTF'}}</title>
     <link href="{{asset('/css/style.min.css')}}" rel="stylesheet">
+    <link href="{{asset('assets/libs/toastr/build/toastr.min.css')}}" rel="stylesheet">
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -40,15 +42,17 @@
     </div>
 </div>
 <script src="{{asset('/assets/libs/jquery/dist/jquery.min.js')}}"></script>
-<script src="{{asset('/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
 <script src="{{asset('/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
 <script>
-    $('[data-toggle="tooltip"]').tooltip();
     $(".preloader").fadeOut();
-    $('#to-recover').on("click", function () {
-        $("#loginform").slideUp();
-        $("#recoverform").fadeIn();
+</script>
+<script src="{{asset('/assets/libs/toastr/build/toastr.min.js')}}"></script>
+<script>
+    $(document).ready(function () {
+        @if(Session::has('status'))
+        toastr.success('{{Session::get('status')}}', 'Info');
+        @endif
     });
 </script>
 </body>
