@@ -23,13 +23,6 @@ class CreateTeamsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        \App\Models\Team::insert([
-            'name' => 'Belum di Isi',
-            'email' => 'team@prodase.tech',
-            'password' => bcrypt('jancokasu'),
-            'verified' => true,
-        ]);
     }
 
     /**

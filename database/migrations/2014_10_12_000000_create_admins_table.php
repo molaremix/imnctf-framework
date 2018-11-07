@@ -20,11 +20,6 @@ class CreateAdminsTable extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
-
-        \App\Models\Admin::insert([
-            'email' => 'admin@prodase.tech',
-            'password' => bcrypt('jancokasu')
-        ]);
     }
 
     /**
