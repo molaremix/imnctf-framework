@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/assets/images/favicon.png')}}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/img/favicon.png')}}">
     <title>{{env('app_name')}}</title>
     <link href="{{asset('/css/style.min.css')}}" rel="stylesheet">
 
@@ -31,36 +31,10 @@
         <div class="auth-box">
             <div id="loginform">
                 <div class="logo">
-                    <span class="db"><img src="{{asset('/img/prodase.png')}}" alt="logo"/></span>
+                    <span class="db"><img src="{{asset('/img/icon-banner.png')}}" alt="logo"/></span>
                     <h5 class="font-medium m-b-20 mt-3">@yield('title', 'Sign In to Admin')</h5>
                 </div>
                 @yield('form')
-            </div>
-            <div id="recoverform">
-                <div class="logo">
-                    <span class="db"><img src="../../assets/images/logo-icon.png" alt="logo"/></span>
-                    <h5 class="font-medium m-b-20">Recover Password</h5>
-                    <span>Enter your Email and instructions will be sent to you!</span>
-                </div>
-                <div class="row m-t-20">
-                    <!-- Form -->
-                    <form class="col-12" action="index.html">
-                        <!-- email -->
-                        <div class="form-group row">
-                            <div class="col-12">
-                                <input class="form-control form-control-lg" type="email" required=""
-                                       placeholder="Username">
-                            </div>
-                        </div>
-                        <!-- pwd -->
-                        <div class="row m-t-20">
-                            <div class="col-12">
-                                <button class="btn btn-block btn-lg btn-danger" type="submit" name="action">Reset
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
             </div>
         </div>
     </div>
