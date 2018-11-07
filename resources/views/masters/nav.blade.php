@@ -1,8 +1,9 @@
+@php($about = \App\Models\About::orderBy('id', 'DESC')->first())
 <html>
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('/img/favicon.png')}}">
-    <title>{{env('app_name')}}</title>
+    <title>{{$about['title'] ?? 'ImnCTF 2018'}}</title>
     <link href="{{asset('css/style.min.css')}}" rel="stylesheet">
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -31,10 +32,9 @@
                 <ul id="sidebarnav">
                     <li class="sidebar-item">
                         <a class="sidebar-link waves-effect waves-dark" href="{{route('index')}}">
-                            <span class="hide-menu">{{env('app_name')}} </span>
+                            <span class="hide-menu">{{$about['title'] ?? 'ImnCTF 2018'}}</span>
                         </a>
                     </li>
-
                     @if(Auth::guard('admin')->check())
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.about.index')}}"

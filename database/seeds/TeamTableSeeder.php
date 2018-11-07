@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
-class TeamSeeder extends Seeder
+class TeamTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
