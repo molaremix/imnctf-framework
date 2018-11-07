@@ -19,16 +19,6 @@ class CreateCategoriesTable extends Migration
             $table->string('description')->nullable();
             $table->timestamps();
         });
-
-        \App\Models\Category::insert([
-            ['name' => 'Misc'],
-            ['name' => 'Web'],
-            ['name' => 'Crypt'],
-            ['name' => 'Re'],
-            ['name' => 'Binary'],
-            ['name' => 'Forensic'],
-            ['name' => 'Network'],
-        ]);
     }
 
     /**

@@ -28,16 +28,6 @@ class CreateChallengesTable extends Migration
             $table->boolean('is_visible')->default(true);
             $table->timestamps();
         });
-
-        \App\Models\Challenge::insert([
-            [
-                'name' => 'EZ Web',
-                'category_id' => '2',
-                'description' => 'We Don\'t Have Any : just Check this out http://vulnweb.com',
-                'flag' => 'ImnCTF{hiyaaa_hiyaaa_hiyaaaa_____hiyaaa}',
-                'point' => 1337,
-            ]
-        ]);
     }
 
     /**
