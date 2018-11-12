@@ -80,7 +80,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark" href="{{route('admin.scoreboard.index')}}"
+                            <a class="sidebar-link waves-effect waves-dark" href="{{route('scoreboard.index')}}"
                                aria-expanded="false">
                                 <i class="ti-cup"></i>
                                 <span class="hide-menu">Scoreboard </span>
