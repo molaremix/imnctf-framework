@@ -81,7 +81,7 @@
 
         $(document).ready(function () {
             var myEditor = document.querySelector('#editor');
-            myEditor.children[0].innerHTML = "{!! old('description', addslashes($about['description'])) !!}"
+            myEditor.children[0].innerHTML = `{!! old('description', addslashes($about['description'])) !!}`
         });
 
         function check() {
