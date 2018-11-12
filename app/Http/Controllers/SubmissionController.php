@@ -20,7 +20,7 @@ class SubmissionController extends Controller
         if ($challenge->remain() == 0)
             return back()->withErrors(['You have exceed your submission limit']);
 
-        if ($challenge->solved() == 0)
+        if ($challenge->solved())
             return back()->withErrors(['You have been Solved this Challenge']);
 
         $submission = Submission::create($validated);
