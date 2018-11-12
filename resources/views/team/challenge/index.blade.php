@@ -24,7 +24,7 @@
                                         <a href="#" class="text-dark">
                                             <h4 class="card-title"><strong
                                                         id="title">{{$challenge['name'] ?? 'No Challenge Selected'}}</strong>
-                                                <span id="pts">{{$challenge->pts() ?? '0'}}pts</span></h4>
+                                                <span id="pts">| {{$challenge->pts() ?? '0'}}pts</span></h4>
                                         </a>
                                         <hr>
                                         @isset($challenge)
