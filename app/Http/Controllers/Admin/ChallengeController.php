@@ -58,12 +58,17 @@ class ChallengeController extends Controller
             'name' => 'required|max:32',
             'description' => 'required',
             'point' => 'required|numeric',
-            'submission_limit' => 'required|numeric',
+            'submission_limit' => 'nullable|numeric',
             'visible' => 'required',
             'point_mode' => 'in:static,decrease,attack_defense',
             'attachments' => 'nullable',
             'attachments.*' => 'mimes:zip|max:2000'
         ]);
+
+        $validated = $request;
+        if ($validated['submission_limit'] == null)
+            $validated['submission_limit'] = -1;
+        $challenge = Challenge::create($validated);
 
         if ($request->has('attachments'))
             foreach ($request->file('attachments') as $file) {
@@ -75,7 +80,7 @@ class ChallengeController extends Controller
                 ]);
             }
 
-        $challenge->fill($request->all());
+        $challenge->fill($validated->all());
         $challenge->save();
         return redirect()->route('admin.challenge.index');
 

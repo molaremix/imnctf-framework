@@ -25,7 +25,7 @@
                                    value="{{$challenge['point'] ?? old('point')}}">
                             <input type="number" class="form-control" placeholder="Submission Limit"
                                    name="submission_limit"
-                                   value="{{$challenge['submission_limit'] ?? old('submission_limit')}}">
+                                   value="@if(isset($challenge)) {{$challenge['submission_limit'] < 0 ? 0 : $challenge['submission_limit']}} @else {{old('submission_limit')}}@endif">
                             <select class="form-control" name="visible" id="visible">
                                 <option value="visible" disabled selected>Visibility</option>
                                 <option value="1">Visible</option>
@@ -124,7 +124,7 @@
     </script>
     <script>
         $('#point_mode').val('{{$challenge['point_mode'] ?? old('point_mode', 'point_mode')}}');
-        if($('#point_mode option:selected').text() === 'Dynamic'){
+        if ($('#point_mode option:selected').text() === 'Dynamic') {
             $('#dynamic').show();
         }
         $('#category_id').val('{{$challenge['category_id'] ?? old('category_id', 'category_id')}}');
