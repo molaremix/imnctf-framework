@@ -24,14 +24,17 @@
                                         <a href="#" class="text-dark">
                                             <h4 class="card-title"><strong
                                                         id="title">{{$challenge['name'] ?? 'No Challenge Selected'}}</strong>
-                                                <span id="pts">| {{$challenge->pts() ?? '0'}}pts</span></h4>
+                                                @isset($challenge)
+                                                    <span id="pts">| {{$challenge->pts()}}pts</span></h4>
+                                                @endisset
                                         </a>
                                         <hr>
                                         @isset($challenge)
                                             @if($challenge->remain() >= 0)
                                                 <div class="alert alert-info">You Have {{$challenge->remain()}} tries
                                                     remain
-                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                    <button type="button" class="close" data-dismiss="alert"
+                                                            aria-label="Close"><span
                                                                 aria-hidden="true">×</span></button>
                                                 </div>
                                             @endif
