@@ -15,10 +15,13 @@ class SubmissionController extends Controller
         $validated = $request->validated();
         $validated['team_id'] = Auth::user()['id'];
 
-        $remain = Challenge::find($validated['challenge_id'])->remain();
+        $challenge = Challenge::find($validated['challenge_id']);
 
-        if ($remain == 0)
+        if ($challenge->remain() == 0)
             return back()->withErrors(['You have exceed your submission limit']);
+
+        if ($challenge->solved() == 0)
+            return back()->withErrors(['You have been Solved this Challenge']);
 
         $submission = Submission::create($validated);
         if (!$submission->correct()) {
