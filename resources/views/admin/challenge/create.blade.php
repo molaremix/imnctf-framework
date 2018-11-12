@@ -103,7 +103,7 @@
 
         $(document).ready(function () {
             var myEditor = document.querySelector('#editor');
-            myEditor.children[0].innerHTML = "{!! $challenge['description'] ?? old('description') !!}"
+            myEditor.children[0].innerHTML = `{!! $challenge['description'] ?? old('description') !!}`
         });
 
         function check() {
