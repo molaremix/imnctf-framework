@@ -59,7 +59,7 @@ class Team extends Authenticatable
         $correct = new Collection();
         $this->submission()->each(function ($item) use ($correct) {
             if ($item->correct()) {
-                $correct->put($item['challenge_id'], ['pts' => $item->challenge->remain()]);
+                $correct->put($item['challenge_id'], ['pts' => $item->challenge->pts()]);
             }
         });
         return $correct->sum('pts');
@@ -70,7 +70,7 @@ class Team extends Authenticatable
         $correct = new Collection();
         $this->submissionBeforeFreeze()->each(function ($item) use ($correct) {
             if ($item->correct()) {
-                $correct->put($item['challenge_id'], ['point' => $item->challenge->remain()]);
+                $correct->put($item['challenge_id'], ['point' => $item->challenge->pts()]);
             }
         });
         return $correct->sum('point');

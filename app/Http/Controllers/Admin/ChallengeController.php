@@ -32,6 +32,11 @@ class ChallengeController extends Controller
         $validated = $request->validated();
         if ($validated['submission_limit'] == null)
             $validated['submission_limit'] = -1;
+        if ($validated['decay'] == null)
+            $validated['decay'] = 0;
+        if ($validated['minimum'] == null)
+            $validated['minimum'] = $validated['point'];
+
         $challenge = Challenge::create($validated);
 
         if ($request->has('attachments'))

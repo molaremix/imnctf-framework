@@ -29,6 +29,13 @@
                                         </a>
                                         <hr>
                                         @isset($challenge)
+                                            @if($challenge->remain() >= 0)
+                                                <div class="alert alert-info">You Have {{$challenge->remain()}} tries
+                                                    remain
+                                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                                                aria-hidden="true">×</span></button>
+                                                </div>
+                                            @endif
                                             <p class="card-text" id="desc">{!! $challenge['description'] !!}</p>
 
                                             @if(count($hints) > 0)
@@ -95,7 +102,7 @@
                 data: data,
                 enableLinks: true
             });
-            $('#challenge-tree').treeview('collapseAll', { silent: true });
+            $('#challenge-tree').treeview('collapseAll', {silent: true});
         }
     </script>
     <script src="{{asset('assets/extra-libs/treeview/dist/bootstrap-treeview.min.js')}}"></script>

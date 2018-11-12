@@ -62,7 +62,7 @@ class Challenge extends Model
         return Auth::user()->submission->where('flag', $this->flag)->where('challenge_id', $this->id)->count() != 0;
     }
 
-    public function remain()
+    public function pts()
     {
         if ($this->point_mode === 'static') {
             return $this->point;
@@ -73,5 +73,15 @@ class Challenge extends Model
 
             return $dynamic < $this->minimum ? $this->minimum : $dynamic;
         }
+    }
+
+    public function submittedByMe()
+    {
+        return Submission::where('team_id', Auth::user()->id)->where('challenge_id', $this->id)->count();
+    }
+
+    public function remain()
+    {
+        return $this->submission_limit - $this->submittedByMe();
     }
 }
