@@ -1,4 +1,3 @@
-@php($about = \App\Models\About::orderBy('id', 'DESC')->first())
 <!DOCTYPE html>
 <html dir="ltr">
 

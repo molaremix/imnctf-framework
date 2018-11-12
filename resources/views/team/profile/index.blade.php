@@ -10,7 +10,7 @@
                                 <div class="card-body">
                                     <a href="#" class="text-dark">
                                         <h4 class="card-title"><strong> {{$team['name']}} </strong></h4>
-                                        <h5 class="card-title">Rank #{{$team->rank()}} ({{$team->point()}}pts)</h5>
+                                        {{--<h5 class="card-title">Rank #{{$team->rank()}} ({{$team->point()}}pts)</h5>--}}
                                     </a>
                                     <hr>
                                     <div class="input-group mb-3">

@@ -1,4 +1,3 @@
-@php($about = \App\Models\About::orderBy('id', 'DESC')->first())
 <html>
 <head>
     <meta charset="utf-8">
