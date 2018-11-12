@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Team extends Authenticatable
 {
@@ -43,7 +45,7 @@ class Team extends Authenticatable
         return $this->hasMany(Submission::class);
     }
 
-    public function submissionBeforeFreeze()
+    public function publicSubmission()
     {
         $about = About::orderBy('id', 'DESC')->first();
         if ($about != null)
@@ -54,36 +56,22 @@ class Team extends Authenticatable
         return $this->submission()->where('created_at', '<=', $freeze);
     }
 
-    public function pointUnfreeze()
-    {
-        $correct = new Collection();
-        $this->submission()->each(function ($item) use ($correct) {
-            if ($item->correct()) {
-                $correct->put($item['challenge_id'], ['pts' => $item->challenge->pts()]);
-            }
-        });
-        return $correct->sum('pts');
-    }
-
     public function point()
     {
-        $correct = new Collection();
-        $this->submissionBeforeFreeze()->each(function ($item) use ($correct) {
-            if ($item->correct()) {
-                $correct->put($item['challenge_id'], ['point' => $item->challenge->pts()]);
-            }
-        });
-        return $correct->sum('point');
+        /*$about = About::orderBy('id', 'DESC')->first();
+        if ($about != null)
+            $freeze = $about->finish->subHours(4);
+        else
+            $freeze = Carbon::now();
+
+
+
+        $solved = DB::select('SELECT challenges.id as id FROM submissions JOIN teams on submissions.team_id=teams.id JOIN challenges ON submissions.challenge_id=challenges.id WHERE teams.id = ? and submissions.flag=challenges.flag', [$this->id]);
+        $pts = 0;
+        foreach ($solved as $challenge) {
+            $pts += $points->get($challenge->id);
+        }
+        return $pts;*/
     }
 
-    public function rank()
-    {
-        $rank = Team::where('baned', '0')->get()->sortByDesc(function ($item) {
-            return $item->point();
-        })->search(function ($item) {
-            return $item['id'] == 1;
-        });
-
-        return $rank + 1;
-    }
 }

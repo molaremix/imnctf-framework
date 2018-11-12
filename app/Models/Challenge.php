@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class Challenge extends Model
 {
     protected $fillable = ['category_id', 'name', 'description', 'flag', 'point', 'submission_limit', 'is_visible', 'point_mode', 'decay', 'minimum'];
-    private $solve = 0;
 
     protected $casts = [
         'visible' => 'boolean'
@@ -32,18 +32,8 @@ class Challenge extends Model
 
     public function solve()
     {
-        $this->solve = 0;
-        $this->submission()->each(function ($item) {
-            if ($item->correct())
-                $this->addSolve();
-
-        });
-        return $this->solve;
-    }
-
-    private function addSolve()
-    {
-        $this->solve++;
+        $query = DB::selectOne('SELECT COUNT(*) as solve FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id WHERE submissions.challenge_id = ? AND submissions.flag = challenges.flag', [$this->id]);
+        return $query->solve;
     }
 
     public function hint()
@@ -59,7 +49,8 @@ class Challenge extends Model
 
     public function solved()
     {
-        return Auth::user()->submission->where('flag', $this->flag)->where('challenge_id', $this->id)->count() != 0;
+        $query = DB::selectOne('SELECT COUNT(*) AS solved FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id WHERE submissions.team_id =  ? AND submissions.challenge_id = ? AND submissions.flag = challenges.flag', [Auth::id(), $this->id]);
+        return $query->solved > 0;
     }
 
     public function pts()
@@ -77,7 +68,7 @@ class Challenge extends Model
 
     public function submittedByMe()
     {
-        return Submission::where('team_id', Auth::user()->id)->where('challenge_id', $this->id)->count();
+        return Submission::where('team_id', Auth::id())->where('challenge_id', $this->id)->count();
     }
 
     public function remain()

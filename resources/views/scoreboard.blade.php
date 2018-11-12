@@ -10,7 +10,7 @@
         <div class="col-lg-12 col-md-12">
             <div class="card">
                 <div class="card-header text-center">
-                    <h5>{{$freeze ? 'Scoreboard has ben Freeze' : 'Competition Standing '}}</h5>
+                    {{--                    <h5>{{$freeze ? 'Scoreboard has ben Freeze' : 'Competition Standing '}}</h5>--}}
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -23,13 +23,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($teams as $item)
+                            @foreach($standings as $key => $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>
-                                        {{$item['name']}}
+                                        {{$key}}
                                     </td>
-                                    <td>{{$item->point()}}</td>
+                                    <td>{{$item}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -50,15 +50,4 @@
 @push('scripts')
     <script src="{{asset('/assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script src="{{asset('/js/pages/datatable/datatable-basic.init.js')}}"></script>
-    <script>
-        setInterval(function () {
-            $.ajax({
-                type: "get",
-                url: "{{route('standing')}}",
-                success: function (data) {
-                    console.log(data['data']);
-                }
-            });
-        }, 5000);
-    </script>
 @endpush
