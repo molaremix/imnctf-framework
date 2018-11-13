@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Challenge;
+use App\Models\Submission;
 use App\Models\Team;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -37,6 +38,31 @@ class ScoreboardController extends Controller
         arsort($standings);
 
         return view('scoreboard', compact('standings'));
+    }
+
+    public function standing()
+    {
+        $submissions = Submission::with('challenge')->get();
+        $filteredSubmission = $submissions->filter(function ($submission) {
+            return $submission['flag'] === $submission->challenge['flag'];
+        });
+
+        $maps = $filteredSubmission->mapWithKeys(function ($submission) {
+            return [
+                $submission['team_id'] . '#' . $submission['challenge_id'] => $submission
+            ];
+        })->groupBy('challenge_id');
+
+        $points = $maps->map(function ($submissions) {
+            return $submissions->sortBy('created_at')->map(function ($submission, $position) {
+                $submission['position'] = $position + 1;
+
+                return $submission;
+            });
+        })->collapse()->groupBy('team_id')->map(function ($submissions) {
+            return $submissions->pluck('position', 'challenge_id');
+        });
+        return $points;
     }
 
     public function pts($decay, $minimum, $point, $solve)

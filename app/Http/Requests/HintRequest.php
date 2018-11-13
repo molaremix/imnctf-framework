@@ -9,7 +9,7 @@ class HintRequest extends FormRequest
     public function rules()
     {
         return [
-            'challenge_id' => 'required|max:20|exists:categories,id',
+            'challenge_id' => 'required|max:20|exists:challenges,id',
             'description' => 'required|max:191',
         ];
     }
