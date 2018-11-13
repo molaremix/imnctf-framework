@@ -203,8 +203,8 @@
     <script type="text/javascript">
         var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
         Tawk_API.visitor = {
-            name  : '{{Auth::user()->name}}',
-            email : '{{Auth::user()->email}}'
+            name: '{{Auth::user()->name ?? ''}} ',
+            email: '{{Auth::user()->email ?? ''}}'
         };
         (function () {
             var s1 = document.createElement("script"),
