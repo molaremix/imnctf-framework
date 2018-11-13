@@ -17,30 +17,31 @@ class ScoreboardController extends Controller
         $bindingTeams = trim(str_repeat('?,', count($teams)), ',');
 
         $standings = new Collection();
+
         $points = new Collection();
-
-        /*$solve = new Collection();
-        $solve_query = collect(DB::select('SELECT challenge_id, COUNT(*) as solve FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id WHERE submissions.challenge_id IN (' . $bindingChallenges . ') AND submissions.flag = challenges.flag GROUP BY challenge_id', $challenges));
+        $solve_query = collect(DB::select('SELECT submissions.challenge_id, challenges.decay as decay, challenges.minimum as minimum, challenges.point as point, COUNT(*) as solve FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id WHERE submissions.challenge_id IN (' . $bindingChallenges . ') AND submissions.flag = challenges.flag GROUP BY submissions.challenge_id, submissions.challenge_id, challenges.decay, challenges.minimum, challenges.point', $challenges));
         foreach ($solve_query as $item) {
-            $solve->put($item->challenge_id, $item->solve);
-        }*/
-
-        Challenge::all()->each(function ($item) use ($points) {
-            $points->put($item->id, $item->pts());
-        });
-
+            $points->put($item->challenge_id, [
+                'pts' => $this->pts($item->decay, $item->minimum, $item->point, $item->solve)
+            ]);
+        }
 
         $query = collect(DB::select('SELECT teams.name as team_name, challenges.id as challenge_id FROM submissions JOIN teams on submissions.team_id=teams.id JOIN challenges ON submissions.challenge_id=challenges.id WHERE teams.id IN (' . $bindingTeams . ') and submissions.flag=challenges.flag', $teams))->groupBy('team_name');
-
         foreach ($query as $key => $item) {
             $standings->put($key, $item->map(function ($item) use ($points) {
                 return $points->get($item->challenge_id);
-            })->sum());
+            })->sum('pts'));
         }
 
         $standings = $standings->all();
         arsort($standings);
 
         return view('scoreboard', compact('standings'));
+    }
+
+    public function pts($decay, $minimum, $point, $solve)
+    {
+        $dynamic = ceil(((($minimum - $point) / ($decay ** 2)) * (($solve) ** 2)) + $point);
+        return $dynamic < $minimum ? $minimum : $dynamic;
     }
 }
