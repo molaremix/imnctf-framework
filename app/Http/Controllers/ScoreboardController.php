@@ -45,11 +45,14 @@ class ScoreboardController extends Controller
         $standings = new Collection();
 
         foreach ($teams as $key => $value) {
-            $standings->push(['team' => $allTeam->find($key), 'point' => $value->map(function ($item, $i) use ($points) {
+            $standings->put($key, ['team' => $allTeam->find($key), 'point' => $value->map(function ($item, $i) use ($points) {
                 return $points->get($i) - ($item / 1000);
             })->sum()]);
         }
-
+        foreach ($allTeam as $item) {
+            if (!$standings->has($item['id']))
+                $standings->put($item['id'], ['team' => $item, 'point' => 0]);
+        }
         $results = $standings->sortByDesc('point');
         return view('scoreboards', compact('results'));
     }
