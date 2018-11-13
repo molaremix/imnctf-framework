@@ -2,14 +2,9 @@
 
 namespace App\Models;
 
-use App\Http\Controllers\ScoreboardController;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class Team extends Authenticatable
 {
@@ -24,6 +19,9 @@ class Team extends Authenticatable
         'name', 'email', 'password', 'verified', 'baned'
     ];
 
+    protected $dates = [
+        'last_submit'
+    ];
     protected $hidden = [
         'password', 'remember_token',
     ];
@@ -32,6 +30,11 @@ class Team extends Authenticatable
     {
         $this->baned = !$this->baned;
         $this->save();
+    }
+
+    public function up()
+    {
+        $this->last_submit = Carbon::now();
     }
 
     public function verify()
@@ -55,23 +58,4 @@ class Team extends Authenticatable
 
         return $this->submission()->where('created_at', '<=', $freeze);
     }
-
-    public function point()
-    {
-        /*$about = About::orderBy('id', 'DESC')->first();
-        if ($about != null)
-            $freeze = $about->finish->subHours(4);
-        else
-            $freeze = Carbon::now();
-
-
-
-        $solved = DB::select('SELECT challenges.id as id FROM submissions JOIN teams on submissions.team_id=teams.id JOIN challenges ON submissions.challenge_id=challenges.id WHERE teams.id = ? and submissions.flag=challenges.flag', [$this->id]);
-        $pts = 0;
-        foreach ($solved as $challenge) {
-            $pts += $points->get($challenge->id);
-        }
-        return $pts;*/
-    }
-
 }

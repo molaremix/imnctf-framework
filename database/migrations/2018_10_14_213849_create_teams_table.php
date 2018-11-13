@@ -20,6 +20,7 @@ class CreateTeamsTable extends Migration
             $table->string('password');
             $table->boolean('verified')->default(false);
             $table->boolean('baned')->default(false);
+            $table->date('last_submit')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

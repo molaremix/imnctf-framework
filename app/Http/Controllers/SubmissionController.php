@@ -21,13 +21,16 @@ class SubmissionController extends Controller
             return back()->withErrors(['You have been Solved this Challenge']);
 
         if ($challenge->remain() == 0)
-        return back()->withErrors(['You have exceed your submission limit']);
+            return back()->withErrors(['You have exceed your submission limit']);
 
 
         $submission = Submission::create($validated);
         if (!$submission->correct()) {
             return back()->withErrors('Incorrect');
+        } else {
+            $submission->team->up();
         }
+
         Session::flash('status', 'Congratulation your flag is Correct');
         return back();
     }
