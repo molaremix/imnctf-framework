@@ -43,14 +43,14 @@ class ScoreboardController extends Controller
         $allTeam = Team::where('baned', '0')->get();
 
         $standings = new Collection();
-        foreach ($teams as $key => $value) {
-            $standings->put($value->map(function ($item, $i) use ($points) {
-                return $points->get($i) - $item;
-            })->sum(), $allTeam->find($key));
-        }
-        $results = $standings->all();
-        krsort($results);
 
+        foreach ($teams as $key => $value) {
+            $standings->push(['team' => $allTeam->find($key), 'point' => $value->map(function ($item, $i) use ($points) {
+                return $points->get($i) - ($item / 1000);
+            })->sum()]);
+        }
+
+        $results = $standings->sortByDesc('point');
         return view('scoreboards', compact('results'));
     }
 

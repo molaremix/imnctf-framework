@@ -27,9 +27,9 @@
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>
-                                        {{$item['name']}}
+                                        {{$item['team']['name']}}
                                     </td>
-                                    <td>{{$key}}</td>
+                                    <td>{{ceil($item['point'])}}</td>
                                 </tr>
                             @endforeach
                             </tbody>
