@@ -18,8 +18,9 @@
                 <div class="card">
                     <div class="card-header">{{$item['title']}}</div>
                     <div class="card-body">
-                        <h4 class="card-title">{{$item['category']}}</h4>
-                        <p class="card-text">{!! $item['content'] !!}</p>
+                        <p class="card-text">{{$item['category']}}</p>
+                        <h4 class="card-title">{!! $item['content'] !!}</h4>
+                        <span class="font-10">{{$item->created_at->diffForHumans()}}</span>
                     </div>
                 </div>
             @endforeach
