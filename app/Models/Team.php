@@ -20,7 +20,7 @@ class Team extends Authenticatable
     ];
 
     protected $dates = [
-        'last_submit'
+        'created_at'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -41,6 +41,10 @@ class Team extends Authenticatable
     {
         $this->verified = true;
         $this->save();
+    }
+
+    public function when(){
+        return $this->created_at->diffForHumans();
     }
 
     public function submission()

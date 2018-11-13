@@ -18,6 +18,7 @@
                             <tr>
                                 <th>Name</th>
                                 <th>email</th>
+                                <th>Registration</th>
                                 <th width="100">Status</th>
                                 <th width="200">Action</th>
                             </tr>
@@ -27,6 +28,7 @@
                                 <tr>
                                     <td>{{$item['name']}}</td>
                                     <td>{{$item['email']}}</td>
+                                    <td>{{$item->when()}}</td>
                                     <td>@if(!$item['verified'])
                                             <form action="{{route('admin.team.verify', $item)}}" class="d-inline"
                                                   method="post">
@@ -78,7 +80,9 @@
     <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('#teams').DataTable();
+            $('#teams').DataTable({
+                "aaSorting": []
+            });
         });
     </script>
 @endpush

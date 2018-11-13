@@ -11,7 +11,7 @@ class TeamController extends Controller
 {
     public function index()
     {
-        $teams = Team::all();
+        $teams = Team::all()->sortKeysDesc();
         return view('admin.team.index', compact('teams'));
     }
 

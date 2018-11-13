@@ -59,7 +59,9 @@
     <script src="{{asset('assets/extra-libs/DataTables/datatables.min.js')}}"></script>
     <script>
         $(document).ready(function () {
-            $('#teams').DataTable();
+            $('#teams').DataTable({
+                "aaSorting": []
+            });
         });
     </script>
 @endpush
