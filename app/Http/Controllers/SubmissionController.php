@@ -25,10 +25,10 @@ class SubmissionController extends Controller
 
 
         $submission = Submission::create($validated);
-        if (!$submission->correct()) {
-            return back()->withErrors('Incorrect');
-        } else {
+        if ($submission->correct()) {
             $submission->team->up();
+        } else {
+            return back()->withErrors('Incorrect');
         }
 
         Session::flash('status', 'Congratulation your flag is Correct');

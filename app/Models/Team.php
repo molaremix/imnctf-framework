@@ -35,6 +35,7 @@ class Team extends Authenticatable
     public function up()
     {
         $this->last_submit = Carbon::now();
+        $this->save();
     }
 
     public function verify()
