@@ -12,7 +12,10 @@ class ScoreboardController extends Controller
 {
     public function index()
     {
-        $teams = Team::where('baned', '0')->get()->pluck('id')->all();
+        $teams = Team::where('baned', '0')->get();
+        $allTeam = $teams->pluck('name');
+
+        $teams = $teams->pluck('id')->all();
         $challenges = Challenge::where('is_visible', '1')->where('point_mode', 'dynamic')->get()->pluck('id')->all();
         $bindingChallenges = trim(str_repeat('?,', count($challenges)), ',');
         $bindingTeams = trim(str_repeat('?,', count($teams)), ',');
@@ -32,6 +35,11 @@ class ScoreboardController extends Controller
             $standings->put($key, $item->map(function ($item) use ($points) {
                 return $points->get($item->challenge_id);
             })->sum('pts'));
+            $allTeam = $allTeam->diff($item->first()->team_name);
+        }
+
+        foreach ($allTeam as $team) {
+            $standings->put($team, 0);
         }
 
         $standings = $standings->all();
