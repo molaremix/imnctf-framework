@@ -12,7 +12,7 @@ class HintController extends Controller
 {
     public function index()
     {
-        $hints = Hint::all();
+        $hints = Hint::with('challenge')->get();
         $challenges = Challenge::all();
         return view('admin.hint.index', compact('hints', 'challenges'));
     }

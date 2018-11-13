@@ -16,7 +16,7 @@ class NewsController extends Controller
 
     public function index()
     {
-        $news = News::all();
+        $news = News::all()->sortKeysDesc();
         return view('admin.news.index', compact('news'));
     }
 

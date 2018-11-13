@@ -10,7 +10,7 @@ class SubmissionController extends Controller
 {
     public function index()
     {
-        $submissions = Submission::all()->sortByDesc('created_at');
+        $submissions = Submission::with('challenge')->with('team')->get()->sortByDesc('created_at');
         return view('admin.submission.index', compact('submissions'));
     }
 }

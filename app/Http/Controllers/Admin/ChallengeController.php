@@ -17,7 +17,7 @@ class ChallengeController extends Controller
 {
     public function index()
     {
-        $challenges = Challenge::all();
+        $challenges = Challenge::with('attachment')->with('category')->get();
         return view('admin.challenge.index', compact('challenges'));
     }
 
@@ -73,7 +73,6 @@ class ChallengeController extends Controller
         $validated = $request;
         if ($validated['submission_limit'] == null)
             $validated['submission_limit'] = -1;
-        $challenge = Challenge::create($validated);
 
         if ($request->has('attachments'))
             foreach ($request->file('attachments') as $file) {

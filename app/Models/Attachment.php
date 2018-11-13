@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use League\Flysystem\FileNotFoundException;
 
 class Attachment extends Model
 {
@@ -16,11 +17,25 @@ class Attachment extends Model
 
     public function size()
     {
-        return Storage::size('attachment/' . $this->name);
+        $size = '';
+        try {
+            $size = Storage::size('attachment/' . $this->name) . ' kb';
+        } catch (\Exception $e) {
+            if ($e instanceof FileNotFoundException) {
+                $size = '0 kb';
+            }
+        }
+        return $size;
     }
 
     public function checksum()
     {
-        return md5_file(storage_path('app/attachment/' . $this->name));
+        $md5sum = 'file not found';
+        try {
+            $md5sum = md5_file(storage_path('app/attachment/' . $this->name));
+        } catch (\Exception $e) {
+        }
+
+        return $md5sum;
     }
 }

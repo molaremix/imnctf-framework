@@ -55,7 +55,11 @@ Route::post('/login', 'Auth\TeamLoginController@login')->name('login.check');
 Route::post('/register', 'Auth\TeamLoginController@registerTeam')->name('team.register');
 Route::get('/logout', 'Auth\TeamLoginController@logout')->name('logout');
 Route::get('/download/{files}', function (\App\Models\Attachment $files) {
-    return \Illuminate\Support\Facades\Storage::disk('local')->download('/attachment/' . $files['name']);
+    try {
+        return \Illuminate\Support\Facades\Storage::disk('local')->download('/attachment/' . $files['name']);
+    } catch (\League\Flysystem\FileNotFoundException $e) {
+
+    }
 })->name('download');
 Route::resource('/', 'AboutController')->only(['index']);
 Route::resource('news', 'NewsController')->only(['index']);
