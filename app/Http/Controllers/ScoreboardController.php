@@ -53,6 +53,7 @@ class ScoreboardController extends Controller
             if (!$standings->has($item['id']))
                 $standings->put($item['id'], ['team' => $item, 'point' => 0]);
         }
+
         $results = $standings->sortByDesc('point');
         return view('scoreboard', compact('results'));
     }

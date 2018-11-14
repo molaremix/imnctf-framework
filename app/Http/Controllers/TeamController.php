@@ -15,7 +15,11 @@ class TeamController extends Controller
 
     public function stats(Team $team)
     {
-        $solved = $team->solved();
-        return view('team.stats', compact('solved'));
+        $submissions = $team->submission()->with('challenge')->get();
+        $solved = $submissions->filter(function ($submission) {
+            return $submission['flag'] === $submission->challenge['flag'];
+        });
+
+        return view('team.stats', compact('solved', 'team', 'submissions'));
     }
 }
