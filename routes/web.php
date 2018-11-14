@@ -63,5 +63,6 @@ Route::get('/download/{files}', function (\App\Models\Attachment $files) {
 })->name('download');
 Route::resource('/', 'AboutController')->only(['index']);
 Route::resource('news', 'NewsController')->only(['index']);
+Route::get('team/{team}/stats', 'TeamController@stats')->name('team.stats');
 Route::resource('scoreboard', 'ScoreboardController')->only(['index']);
 Route::get('scoreboard/standing', 'ScoreboardController@standing')->name('standing');

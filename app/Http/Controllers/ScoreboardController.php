@@ -54,7 +54,7 @@ class ScoreboardController extends Controller
                 $standings->put($item['id'], ['team' => $item, 'point' => 0]);
         }
         $results = $standings->sortByDesc('point');
-        return view('scoreboards', compact('results'));
+        return view('scoreboard', compact('results'));
     }
 
     public function pts($decay, $minimum, $point, $solve)

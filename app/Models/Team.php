@@ -26,6 +26,16 @@ class Team extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function solved()
+    {
+        $submissions = $this->submission()->with('challenge')->get();
+        $filteredSubmission = $submissions->filter(function ($submission) {
+            return $submission['flag'] === $submission->challenge['flag'];
+        });
+
+        return $filteredSubmission;
+    }
+
     public function ban()
     {
         $this->baned = !$this->baned;
@@ -44,7 +54,8 @@ class Team extends Authenticatable
         $this->save();
     }
 
-    public function when(){
+    public function when()
+    {
         return $this->created_at->diffForHumans();
     }
 

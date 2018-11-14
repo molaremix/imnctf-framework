@@ -4,6 +4,12 @@
     <link href="{{asset('assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet">
     <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+
+    <style>
+        .text-grey {
+            color: #6a7a8c;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="row">
@@ -23,13 +29,13 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($standings as $key => $item)
+                            @foreach($results as $key => $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>
-                                        {{$key}}
+                                        <a href="{{route('team.stats',  $item['team'])}}" class="text-grey">{{$item['team']['name']}}</a>
                                     </td>
-                                    <td>{{$item}}</td>
+                                    <td>{{ceil($item['point'])}}</td>
                                 </tr>
                             @endforeach
                             </tbody>

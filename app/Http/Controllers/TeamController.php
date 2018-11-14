@@ -12,4 +12,10 @@ class TeamController extends Controller
         $team = Team::first();
         return view('team.profile.index', compact('team'));
     }
+
+    public function stats(Team $team)
+    {
+        $solved = $team->solved();
+        return view('team.stats', compact('solved'));
+    }
 }

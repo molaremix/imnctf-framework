@@ -17,19 +17,19 @@
                         <table id="zero_config" class="table table-hover">
                             <thead>
                             <tr>
-                                <th width="40">#</th>
-                                <th>Team</th>
-                                <th width="100">Point</th>
+                                <th width="40">No</th>
+                                <th>Challenge</th>
+                                <th width="100">Submit Time</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($results as $key => $item)
+                            @foreach($solved as $key => $item)
                                 <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>
-                                        {{$item['team']['name']}}
+                                        {{$item->challenge['name']}}
                                     </td>
-                                    <td>{{ceil($item['point'])}}</td>
+                                    <td>{{$item->challenge->created_at->diffForHumans()}} ({{$item->challenge->created_at}})</td>
                                 </tr>
                             @endforeach
                             </tbody>
