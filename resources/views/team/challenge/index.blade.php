@@ -25,14 +25,15 @@
                                             <h4 class="card-title"><strong
                                                         id="title">{{$challenge['name'] ?? 'No Challenge Selected'}}</strong>
                                                 @isset($challenge)
-                                                    <span id="pts">| {{$challenge->pts()}}pts</span></h4>
+                                                    @php($solve = $challenge->solve())
+                                                    <span id="pts">| {{$challenge->pts(count($solve))}}pts</span> -
+                                                    <span onclick="solvedBy()" data-show="alert"><u>Solved by {{count($solve)}} teams</u></span></h4>
                                             @endisset
                                         </a>
                                         <hr>
                                         @isset($challenge)
                                             @if($challenge->remain() >= 0)
-                                                <div class="alert alert-info">You Have {{$challenge->remain()}} tries
-                                                    remain
+                                                <div class="alert alert-info">Sisa Percobaan Submit : {{$challenge->remain()}}
                                                     <button type="button" class="close" data-dismiss="alert"
                                                             aria-label="Close"><span
                                                                 aria-hidden="true">×</span></button>
@@ -74,6 +75,17 @@
                                                 <button class="btn waves-effect waves-light btn-outline-success">
                                                     Submit<i class="ml-2 ti-control-forward"></i></button>
                                             </form>
+                                            <div class="alert alert-info" style="display: none" id="solved-by">
+                                                Solved by
+                                                <button type="button" class="close" data-dismiss="alert"
+                                                        aria-label="Close"><span
+                                                            aria-hidden="true">×</span></button>
+                                                <ul>
+                                                    @foreach ($solve as $item)
+                                                        <li>{{ $item->name}} at ({{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time)->diffForHumans()}})</li>
+                                                    @endforeach
+                                                </ul>
+                                            </div>
                                         @endif
                                     </div>
                                 </div>
@@ -105,6 +117,10 @@
                 enableLinks: true
             });
             $('#challenge-tree').treeview('collapseAll', {silent: true});
+        }
+
+        function solvedBy() {
+            $('#solved-by').show()
         }
     </script>
     <script src="{{asset('assets/extra-libs/treeview/dist/bootstrap-treeview.min.js')}}"></script>

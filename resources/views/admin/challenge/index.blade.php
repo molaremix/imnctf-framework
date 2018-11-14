@@ -34,7 +34,7 @@
                                                     <td>{{$item['point']}}</td>
                                                     <td>{{$item['submission_limit'] == -1 ? '~' : $item['submission_limit']}}</td>
                                                     <td title="{{$item['flag']}}">{{strlen($item['flag']) > 30 ? substr($item['flag'],0,30)."..." : $item['flag']}}</td>
-                                                    <td>{{$item->solve()}}</td>
+                                                    <td>{{count($item->solve())}}</td>
                                                     <td>
                                                         <a href="{{route('admin.challenge.edit', $item)}}"
                                                            class="btn btn-xs btn-warning"><i class="mr-2 ti-pencil"></i>Edit</a>

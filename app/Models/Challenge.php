@@ -32,8 +32,9 @@ class Challenge extends Model
 
     public function solve()
     {
-        $query = DB::selectOne('SELECT COUNT(*) as solve FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id WHERE submissions.challenge_id = ? AND submissions.flag = challenges.flag', [$this->id]);
-        return $query->solve;
+        $query = DB::select('SELECT teams.name, submissions.created_at as time FROM submissions JOIN challenges ON submissions.challenge_id = challenges.id JOIN teams ON teams.id = submissions.team_id WHERE submissions.challenge_id = ? AND submissions.flag = challenges.flag
+', [$this->id]);
+        return $query;
     }
 
     public function hint()
@@ -53,14 +54,14 @@ class Challenge extends Model
         return $query->solved > 0;
     }
 
-    public function pts()
+    public function pts($solve = null)
     {
         if ($this->point_mode === 'static') {
             return $this->point;
         } else {
             if ($this->decay == 0)
                 $this->decay = 1;
-            $dynamic = ceil(((($this->minimum - $this->point) / ($this->decay ** 2)) * (($this->solve() - 1) ** 2)) + $this->point);
+            $dynamic = ceil(((($this->minimum - $this->point) / ($this->decay ** 2)) * (($solve ?? count($this->solve()) - 1) ** 2)) + $this->point);
 
             return $dynamic < $this->minimum ? $this->minimum : $dynamic;
         }
