@@ -82,7 +82,7 @@
                                                             aria-hidden="true">×</span></button>
                                                 <ul>
                                                     @foreach ($solve as $item)
-                                                        <li>{{ $item->name}} at ({{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time)->diffForHumans()}})</li>
+                                                        <li>{{ $item->name}} ({{Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $item->time)->diffForHumans()}})</li>
                                                     @endforeach
                                                 </ul>
                                             </div>
