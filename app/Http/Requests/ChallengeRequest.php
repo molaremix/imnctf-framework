@@ -12,7 +12,7 @@ class ChallengeRequest extends FormRequest
             'category_id' => 'required|exists:categories,id',
             'name' => 'required|max:32',
             'description' => 'required',
-            'flag' => 'required|max:72|unique:challenges,flag',
+            'flag' => 'required|max:100|unique:challenges,flag',
             'point' => 'required|numeric',
             'submission_limit' => 'nullable|numeric|min:1',
             'visible' => 'required',
