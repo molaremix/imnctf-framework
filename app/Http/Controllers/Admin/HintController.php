@@ -26,7 +26,8 @@ class HintController extends Controller
     public function edit(Hint $hint)
     {
         $hints = Hint::all();
-        return view('admin.hint.index', compact('hint', 'hints'));
+        $challenges = Challenge::all();
+        return view('admin.hint.index', compact('hint', 'hints', 'challenges'));
     }
 
     public function update(Hint $hint, HintRequest $request){
