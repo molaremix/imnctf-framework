@@ -53,9 +53,10 @@ class ScoreboardController extends Controller
             if (!$standings->has($item['id']))
                 $standings->put($item['id'], ['team' => $item, 'point' => 0]);
         }
-
+//        return $filteredSubmission->flatten()->groupBy('challenge_id')->count();
+        $challengesSolved = $filteredSubmission->flatten()->groupBy('challenge_id')->count();
         $results = $standings->sortByDesc('point');
-        return view('scoreboard', compact('results'));
+        return view('scoreboard', compact('results', 'filteredSubmission', 'submissions', 'challenges', 'challengesSolved'));
     }
 
     public function pts($decay, $minimum, $point, $solve)
