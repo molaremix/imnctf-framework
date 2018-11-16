@@ -66,3 +66,5 @@ Route::resource('news', 'NewsController')->only(['index']);
 Route::get('team/{team}/stats', 'TeamController@stats')->name('team.stats');
 Route::resource('scoreboard', 'ScoreboardController')->only(['index']);
 Route::get('scoreboard/standing', 'ScoreboardController@standing')->name('standing');
+
+Route::get('openmind', 'FormController@form')->name('openmind.form');

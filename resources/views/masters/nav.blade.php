@@ -155,6 +155,13 @@
                             </a>
                         </li>
                     @endif
+                    <li class="sidebar-item">
+                        <a class="sidebar-link waves-effect waves-dark" href="{{route('openmind.form')}}"
+                           aria-expanded="false">
+                            <i class="ti-archive"></i>
+                            <span class="hide-menu">Recruitment </span>
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </div>
