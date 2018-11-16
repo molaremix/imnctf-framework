@@ -19,7 +19,7 @@
                                             <tr>
                                                 <th width="75">Name</th>
                                                 <th width="75">Category</th>
-                                                <th width="50">Point</th>
+                                                <th width="60">Point</th>
                                                 <th width="25">Limit</th>
                                                 <th>Flag</th>
                                                 <th width="30">Solve</th>
@@ -31,7 +31,7 @@
                                                 <tr>
                                                     <td>{{$item['name']}}</td>
                                                     <td>{{$item->category['name']}}</td>
-                                                    <td>{{$item['point']}}</td>
+                                                    <td>{{$item->pts()}}-{{$item['point']}}</td>
                                                     <td>{{$item['submission_limit'] == -1 ? '~' : $item['submission_limit']}}</td>
                                                     <td title="{{$item['flag']}}">{{strlen($item['flag']) > 30 ? substr($item['flag'],0,30)."..." : $item['flag']}}</td>
                                                     <td>{{count($item->solve())}}</td>

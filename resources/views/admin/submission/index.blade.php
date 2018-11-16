@@ -4,6 +4,11 @@
     <link href="{{asset('assets/extra-libs/c3/c3.min.css')}}" rel="stylesheet">
     <link href="{{asset('assets/extra-libs/jvector/jquery-jvectormap-2.0.2.css')}}" rel="stylesheet">
     <link href="{{asset('assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <style>
+        .text-grey {
+            color: #6a7a8c;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="row">
@@ -24,9 +29,15 @@
                             <tbody>
                             @foreach($submissions as $item)
                                 <tr>
-                                    <td>{{$item->challenge['name']}}</td>
-                                    <td>{{$item->team['name']}}</td>
-                                    <td>{{$item['flag']}}</td>
+                                    <td>
+                                        <a href="{{route('admin.challenge.index')}}"
+                                           class="text-grey">{{$item->challenge['name']}}</a>
+                                    </td>
+                                    <td>
+                                        <a href="{{route('team.stats',  $item->team['id'])}}"
+                                           class="text-grey">{{$item->team['name']}}</a>
+                                    </td>
+                                    <td>{{strlen($item['flag']) > 30 ? substr($item['flag'],0,30)."..." : $item['flag']}}</td>
                                     <td>{{$item->created_at->diffForHumans()}}</td>
                                     <td>
                                         @if($item->correct())
