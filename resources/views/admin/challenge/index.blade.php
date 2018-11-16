@@ -31,7 +31,7 @@
                                                 <tr>
                                                     <td>{{$item['name']}}</td>
                                                     <td>{{$item->category['name']}}</td>
-                                                    <td>{{$item->pts()}}-{{$item['point']}}</td>
+                                                    <td>{{$item['minimum']}}-{{$item['point']}}</td>
                                                     <td>{{$item['submission_limit'] == -1 ? '~' : $item['submission_limit']}}</td>
                                                     <td title="{{$item['flag']}}">{{strlen($item['flag']) > 30 ? substr($item['flag'],0,30)."..." : $item['flag']}}</td>
                                                     <td>{{count($item->solve())}}</td>
