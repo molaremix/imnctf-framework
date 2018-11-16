@@ -57,8 +57,8 @@
                                         <a href="{{route('challenge.show',  $item->challenge)}}"
                                            class="text-grey">{{$item->challenge['name']}}</a>
                                     </td>
-                                    <td>{{$item->challenge->created_at->diffForHumans()}}
-                                        ({{$item->challenge->created_at}})
+                                    <td>{{$item->created_at->diffForHumans()}}
+                                        ({{$item->created_at}})
                                     </td>
                                 </tr>
                             @endforeach
